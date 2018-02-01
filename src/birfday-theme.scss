@@ -23,26 +23,32 @@ html, body {
 }
 
 .logo {
-  height: 36px;
-}
-
-mat-toolbar {
-  display: flex;
-  justify-content: flex-end;
+  height: 32px;
+  right: 18px;
+  position: absolute;
 }
 
 .mat-app-background {
   background-color: mat-color($birfdaygal-accent, 900);
 }
 
+.avatar {
+  object-fit: cover;
+  border-radius:50%;
+  border: 1px solid mat-color($birfdaygal-primary, 500);
+  width: 32px;
+  height: 32px;
+}
+
 $bottom-nav-label-font-size-active: 12px;
 $bottom-nav-action-min-width: 52px;
 $bottom-nav-action-horizontal-margin: 0;
+$bottom-nav-border-color: none;
 
 @import '~material-bottom-nav';
 
 .bottom-nav {
   padding-left: 8px;
   padding-right: 8px;
-  @include bottom-nav(mat-color($birfdaygal-primary, 900), mat-color($birfdaygal-primary, 100), mat-color($birfdaygal-primary, 400));
+  @include bottom-nav(mat-color($birfdaygal-primary, 900), mat-color($birfdaygal-primary, 100), mat-color($birfdaygal-primary, 400), false);
 }

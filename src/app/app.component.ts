@@ -1,4 +1,5 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,14 @@ import {AfterViewInit, Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  activeLink = '';
+
+  constructor(private router: Router,
+              private route: ActivatedRoute) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.activeLink = route.root.firstChild.snapshot.data['active-link'];
+      }
+    });
+  }
 }
