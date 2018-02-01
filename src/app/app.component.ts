@@ -6,9 +6,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'app';
   activeLink = '';
-
   constructor(private router: Router,
               private route: ActivatedRoute) {
     router.events.subscribe(event => {
