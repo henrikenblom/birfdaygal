@@ -1,20 +1,35 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
+<mat-toolbar color="primary">
+  <img class="logo" src="../assets/SVG/30.svg">
+</mat-toolbar>
+<router-outlet></router-outlet>
+<nav class="bottom-nav">
+  <a class="bottom-nav__action" href="#">
+    <svg class="bottom-nav__icon" viewBox="0 0 24 24">
+      <path d="M5.5,11.8c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8C6.3,12.1,5.9,11.8,5.5,11.8z M9.4,11.8
+		c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8C10.2,12.1,9.8,11.8,9.4,11.8z M7.4,5.4
+		c-3.6,0-6.5,2.9-6.5,6.5s2.9,6.5,6.5,6.5s6.5-2.9,6.5-6.5S11,5.4,7.4,5.4z M7.4,17.1c-2.9,0-5.2-2.3-5.2-5.2c0-0.2,0-0.4,0-0.6
+		C3.8,10.7,5,9.4,5.6,7.9c1.2,1.7,3.1,2.8,5.3,2.8c0.5,0,1-0.1,1.5-0.2c0.1,0.5,0.2,1,0.2,1.5C12.6,14.8,10.3,17.1,7.4,17.1z"></path>
+      <path d="M14.5,11.8c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8s0.8-0.4,0.8-0.8C15.4,12.1,15,11.8,14.5,11.8z M18.4,11.8
+            c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8C19.3,12.1,18.9,11.8,18.4,11.8z M11.5,16.1
+            c1.2,1.4,3,2.3,5,2.3c3.6,0,6.5-2.9,6.5-6.5s-2.9-6.5-6.5-6.5c-2.2,0-4.2,1.1-5.4,2.9l2,1.9c0.7-0.7,1.3-1.5,1.7-2.4
+            c1.2,1.7,3.1,2.8,5.3,2.8c0.5,0,1-0.1,1.5-0.2c0.1,0.5,0.2,1,0.2,1.5c0,2.9-2.3,5.2-5.2,5.2c-1.7,0-3.2-0.8-4.2-2.1L11.5,16.1z"></path>
+    </svg>
+    <span class="bottom-nav__label">Twins</span>
+  </a>
+  <a class="bottom-nav__action bottom-nav__action--active" href="#">
+    <span class="bottom-nav__icon"><mat-icon>format_list_bulleted</mat-icon></span>
+    <span class="bottom-nav__label">Quiz</span>
+  </a>
+  <a class="bottom-nav__action" href="#">
+    <span class="bottom-nav__icon"><mat-icon>album</mat-icon></span>
+    <span class="bottom-nav__label">MusicQuiz</span>
+  </a>
+  <a class="bottom-nav__action" href="#">
+    <span class="bottom-nav__icon"><mat-icon>restaurant</mat-icon></span>
+    <span class="bottom-nav__label">Food</span>
+  </a>
+  <a class="bottom-nav__action" href="#">
+    <span class="bottom-nav__icon"><mat-icon>people</mat-icon></span>
+    <span class="bottom-nav__label">Crowd</span>
+  </a>
+</nav>

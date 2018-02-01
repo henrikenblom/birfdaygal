@@ -1,0 +1,48 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$birfdaygal-primary: mat-palette($mat-teal, 900);
+$birfdaygal-accent: mat-palette($mat-blue-grey);
+$birfdaygal-theme: mat-light-theme($birfdaygal-primary, $birfdaygal-accent);
+
+@include angular-material-theme($birfdaygal-theme);
+
+$material-design-icons-font-path: "../node_modules/material-design-icons-iconfont/dist/fonts/";
+@import "../node_modules/material-design-icons-iconfont/dist/material-design-icons";
+
+*:focus {
+  outline: none;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.logo {
+  height: 36px;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-app-background {
+  background-color: mat-color($birfdaygal-accent, 900);
+}
+
+$bottom-nav-label-font-size-active: 12px;
+$bottom-nav-action-min-width: 52px;
+$bottom-nav-action-horizontal-margin: 0;
+
+@import '~material-bottom-nav';
+
+.bottom-nav {
+  padding-left: 8px;
+  padding-right: 8px;
+  @include bottom-nav(mat-color($birfdaygal-primary, 900), mat-color($birfdaygal-primary, 100), mat-color($birfdaygal-primary, 400));
+}
