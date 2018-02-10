@@ -3,7 +3,7 @@
 @include mat-core();
 
 $birfdaygal-primary: mat-palette($mat-teal, 900);
-$birfdaygal-accent: mat-palette($mat-blue-grey);
+$birfdaygal-accent: mat-palette($mat-deep-orange);
 $birfdaygal-theme: mat-light-theme($birfdaygal-primary, $birfdaygal-accent);
 
 @include angular-material-theme($birfdaygal-theme);
@@ -29,15 +29,96 @@ html, body {
 }
 
 .mat-app-background {
-  background-color: mat-color($birfdaygal-accent, 900);
+  background-color: #263238;
+}
+
+.error-background {
+  background-color: mat-color($mat-red, 800);
+  opacity: 0.4;
+  width: 100%;
+  height: calc(100% - 56px);
+  position: absolute;
+  z-index: -1;
 }
 
 .avatar {
   object-fit: cover;
-  border-radius:50%;
+  border-radius: 50%;
   border: 1px solid mat-color($birfdaygal-primary, 500);
   width: 32px;
   height: 32px;
+}
+
+.music-quiz-question-card {
+  .name {
+    font-weight: bold;
+  }
+  img {
+    opacity: 0.85;
+    object-fit: cover;
+    height: 110px;
+  }
+  .reward-text {
+    color: mat-color($birfdaygal-primary, 400);
+    margin-top: 1em;
+  }
+  .reward-point {
+    font-weight: bold;
+  }
+}
+
+.music-quiz-answer-card, .music-quiz-question-card {
+  margin: 8px;
+  background-color: mat-color($birfdaygal-primary, 900);
+  color: mat-color($birfdaygal-primary, 100);
+}
+
+.music-quiz-answer-card {
+  height: 16px;
+  background-color: mat-color($birfdaygal-primary, 800);
+  font-weight: bold;
+}
+
+.music-quiz-response, .music-quiz-paused {
+  text-align: center;
+  color: mat-color($birfdaygal-primary, 100);
+  padding: 16px;
+
+  .name {
+    font-weight: bold;
+  }
+  .decoration-image {
+    display: block;
+    object-fit: cover;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 1px solid mat-color($birfdaygal-primary, 400);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+  }
+  .mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.wrong {
+  color: mat-color($birfdaygal-accent, 400);
+}
+
+.music-quiz-stats-card {
+  height: 16px;
+  margin: 12px 8px 8px;
+  text-align: center;
+  background-color: mat-color($birfdaygal-primary, 900);
+  color: mat-color($birfdaygal-primary, 100);
+  font-weight: normal;
+  .points {
+    font-weight: bold;
+  }
 }
 
 $bottom-nav-label-font-size-active: 12px;

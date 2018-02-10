@@ -4,12 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
-import {MatButtonModule, MatIconModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatChipsModule, MatDividerModule, MatIconModule, MatRippleModule,
+  MatToolbarModule
+} from '@angular/material';
 import { TwinsComponent } from './twins/twins.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { MusicQuizComponent } from './music-quiz/music-quiz.component';
 import { MenuComponent } from './menu/menu.component';
 import { PeopleComponent } from './people/people.component';
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+import { BackgroundImageDirective } from './background-image.directive';
 
 const appRoutes: Routes = [
   {path: 'twins', component: TwinsComponent, data: {'active-link': 'twins'}},
@@ -27,7 +35,8 @@ const appRoutes: Routes = [
     QuizComponent,
     MusicQuizComponent,
     MenuComponent,
-    PeopleComponent
+    PeopleComponent,
+    BackgroundImageDirective
   ],
   imports: [
     BrowserModule,
@@ -35,9 +44,17 @@ const appRoutes: Routes = [
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    RouterModule.forRoot(appRoutes)
+    MatCardModule,
+    MatRippleModule,
+    MatDividerModule,
+    MatChipsModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    RouterModule.forRoot(appRoutes),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,8 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  userId: number;
+  partyStarted = false;
   activeLink = '';
   constructor(private router: Router,
               private route: ActivatedRoute) {
