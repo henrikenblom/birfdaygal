@@ -29,3 +29,25 @@ export class InitialGuessState implements GuessState {
   guessWasCorrect = false;
   reward: 0;
 }
+
+export interface ApplicationState {
+  partyStarted: boolean;
+}
+
+export interface Guest {
+  name: string;
+  nickname?: string;
+  phonenumber?: string;
+  photo_url?: string;
+  landmarked_photo_url?: string;
+  landmark_url?: string;
+  dietRestrictions?: DietRestriction[];
+  willAttend: boolean;
+  hasResponded: boolean;
+  formComplete: boolean;
+  isLoggedIn: boolean;
+}
+
+export interface DietRestriction {
+  name: string;
+}

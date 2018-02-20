@@ -1,0 +1,13 @@
+<div class="login-page">
+  <h1><img src="../../assets/SVG/cake.svg"></h1>
+  <h2>Logga in med ditt PIN</h2>
+  <p>(Party Invitation Number)</p>
+  <mat-form-field class="pin-code-field">
+    <input matInput
+           autocomplete="off"
+           type="number"
+           (input)="onPINInputChange($event)"
+           [disabled]="authenticating">
+  </mat-form-field>
+  <img src="../../assets/SVG/flags_b_t.svg">
+</div>

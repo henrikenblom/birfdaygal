@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {GuessState, InitialGuessState, InitialPlayerStats, PlayerStats, Track} from '../../../functions/src/declarations';
+import {GuessState, InitialGuessState, PlayerStats, Track} from '../../../../functions/src/declarations';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-music-quiz',
@@ -17,9 +18,9 @@ export class MusicQuizComponent implements OnInit {
   stateSynced = false;
   guessable = true;
   randomImageIndex = 1;
-  userId = '1001';
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore,
+              public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -29,14 +30,14 @@ export class MusicQuizComponent implements OnInit {
 
   guess(artist: string) {
     this.guessState = {
-      guessWasCorrect: this.currentTrack.artist_name == artist,
+      guessWasCorrect: this.currentTrack.artist_name === artist,
       haveGuessed: true,
       reward: this.currentTrack.reward
     };
     this.db.collection('musicquiz')
       .doc('guesses')
       .collection('users')
-      .doc(this.userId)
+      .doc(this.authService.userId)
       .set(this.guessState);
   }
 
@@ -45,7 +46,7 @@ export class MusicQuizComponent implements OnInit {
       .doc<Track>('current_track')
       .valueChanges()
       .forEach(track => {
-        const update = this.currentTrack == undefined || this.currentTrack.name != track.name;
+        const update = this.currentTrack === undefined || this.currentTrack.name !== track.name;
         this.currentTrack = track;
         this.quizRunning = this.currentTrack.is_playing;
         this.randomImageIndex = Math.floor(Math.random() * (16 - 1 + 1)) + 1;
@@ -81,11 +82,11 @@ export class MusicQuizComponent implements OnInit {
     const docReference = this.db.collection('musicquiz')
       .doc('guesses')
       .collection('users')
-      .doc(this.userId);
+      .doc(this.authService.userId);
     const statsReference = this.db.collection('musicquiz')
       .doc('scoreboard')
       .collection('stats')
-      .doc(this.userId);
+      .doc(this.authService.userId);
 
     docReference.ref.get()
       .then(doc => {
@@ -111,7 +112,7 @@ export class MusicQuizComponent implements OnInit {
     const statsReference = this.db.collection('musicquiz')
       .doc('scoreboard')
       .collection('stats')
-      .doc<PlayerStats>(this.userId)
+      .doc<PlayerStats>(this.authService.userId)
       .valueChanges()
       .forEach(stats => {
         this.playerStats = stats;
@@ -122,7 +123,7 @@ export class MusicQuizComponent implements OnInit {
     this.db.collection('musicquiz')
       .doc('guesses')
       .collection('users')
-      .doc<GuessState>(this.userId)
+      .doc<GuessState>(this.authService.userId)
       .valueChanges()
       .forEach(guessState => {
         if (guessState !== null) {

@@ -1,20 +1,47 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {Component, enableProdMode, OnChanges, OnInit} from '@angular/core';
+import {AuthService} from './auth.service';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Guest} from '../../functions/src/declarations';
+import {NavigationEnd, Router} from '@angular/router';
+
+enableProdMode();
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  userId: number;
-  partyStarted = false;
-  activeLink = '';
-  constructor(private router: Router,
-              private route: ActivatedRoute) {
-    router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.activeLink = route.root.firstChild.snapshot.data['active-link'];
-      }
-    });
+  DEFAULT_PHOTO_URL = '../assets/no_profile.png';
+  photoUrl = this.DEFAULT_PHOTO_URL;
+  hasPhoto = false;
+  userName = '';
+
+  constructor(public authService: AuthService,
+              private db: AngularFirestore,
+              public router: Router) {
+    this.router.events
+      .filter(event => (event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updatePhotoUrl();
+      });
+  }
+
+  updatePhotoUrl() {
+    if (this.authService.isLoggedIn) {
+      this.db.collection('guests').doc<Guest>(this.authService.userId).valueChanges()
+        .forEach(guest => {
+          if (guest.photo_url) {
+            this.photoUrl = guest.photo_url;
+            this.hasPhoto = true;
+          }
+          this.userName = guest.name;
+        });
+    }
+  }
+
+  doLogout() {
+    this.photoUrl = this.DEFAULT_PHOTO_URL;
+    this.hasPhoto = false;
+    this.authService.logout();
   }
 }

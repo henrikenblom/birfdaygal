@@ -61,21 +61,21 @@
         *ngIf="guessState.guessWasCorrect; then guessWasCorrectBlock else guessWasIncorrectBlock"></ng-container>
       <ng-template #guessWasCorrectBlock>
         <h3>Rätt!</h3>
-        <div class="decoration-image" mat-card-image [background-image]="currentArtistInformation.images[0]"></div>
+        <div class="decoration-image" mat-card-image appBackgroundImage
+             [artistImage]="currentArtistInformation.images[0]"></div>
         <span class="name">{{currentTrack.artist_name}}</span> med <span
         class="name">{{currentTrack.name}}</span>
       </ng-template>
       <ng-template #guessWasIncorrectBlock>
         <h3>Det var tyvärr fel…</h3>
-        <div class="decoration-image" mat-card-image [background-image]="currentArtistInformation.images[0]"></div>
+        <div class="decoration-image" mat-card-image appBackgroundImage
+             [artistImage]="currentArtistInformation.images[0]"></div>
         Rätt svar är <span class="name">{{currentTrack.artist_name}}</span> (med <span
         class="name">{{currentTrack.name}}</span>)
       </ng-template>
     </div>
-    <mat-card *ngIf="playerStats" class="music-quiz-stats-card">
-      <mat-card-content>
-        Du har totalt: <span class="points">{{playerStats.points}} poäng</span>
-      </mat-card-content>
-    </mat-card>
+    <div *ngIf="playerStats" class="music-quiz-stats-card">
+      Du har totalt: <span class="points">{{playerStats.points}} poäng</span>
+    </div>
   </ng-template>
 </ng-container>
