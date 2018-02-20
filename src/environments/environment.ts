@@ -4,5 +4,14 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  profileImageUploadEndpoint: 'https://titan.enblom.com/profile_image_upload',
+  firebase: {
+    apiKey: 'AIzaSyCgaKwpXsQmHj0iJK-IDv_BdhB6ETC7Aog',
+    authDomain: 'birfday-gal.firebaseapp.com',
+    databaseURL: 'https://birfday-gal.firebaseio.com',
+    projectId: 'birfday-gal',
+    storageBucket: 'birfday-gal.appspot.com',
+    messagingSenderId: '1027434202117'
+  }
 };

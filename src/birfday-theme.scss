@@ -1,10 +1,15 @@
 @import '~@angular/material/theming';
+@import url('https://fonts.googleapis.com/css?family=Baloo');
 
-@include mat-core();
+$general-typography: mat-typography-config(
+  $font-family: '"Baloo"'
+);
 
-$birfdaygal-primary: mat-palette($mat-teal, 900);
-$birfdaygal-accent: mat-palette($mat-blue-grey);
-$birfdaygal-theme: mat-light-theme($birfdaygal-primary, $birfdaygal-accent);
+@include mat-core($general-typography);
+
+$birfdaygal-primary: mat-palette($mat-teal, 300);
+$birfdaygal-accent: mat-palette($mat-deep-orange);
+$birfdaygal-theme: mat-dark-theme($birfdaygal-primary, $birfdaygal-accent);
 
 @include angular-material-theme($birfdaygal-theme);
 
@@ -15,35 +20,219 @@ $material-design-icons-font-path: "../node_modules/material-design-icons-iconfon
   outline: none;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 html, body {
   margin: 0;
   width: 100%;
   height: 100%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Baloo";
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  img {
+    height: 0.9em;
+    vertical-align: middle;
+  }
 }
 
 .logo {
-  height: 32px;
-  right: 18px;
+  right: 16px;
+  top: 0;
+  padding-top: 12px;
   position: absolute;
+  vertical-align: top;
+  img {
+    height: 32px;
+  }
 }
 
-.mat-app-background {
-  background-color: mat-color($birfdaygal-accent, 900);
+.pin-code-field {
+  font-size: 32px;
+  width: 2.45em;
+  font-family: monospace;
+}
+
+.login-page, .will-not-attend-message {
+  text-align: center;
+}
+
+.mat-app-background, .mat-stepper-horizontal, .mat-stepper-vertical {
+  background-color: #2E2E4A;
+  color: mat-color($birfdaygal-primary, 100);
+}
+
+.mat-toolbar {
+  background-color: mat-color($birfdaygal-primary, 900);
+}
+
+.error-background {
+  background-color: mat-color($mat-red, 800);
+  opacity: 0.4;
+  width: 100%;
+  height: calc(100% - 56px);
+  position: absolute;
+  z-index: -1;
 }
 
 .avatar {
-  object-fit: cover;
-  border-radius:50%;
-  border: 1px solid mat-color($birfdaygal-primary, 500);
   width: 32px;
   height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid mat-color($birfdaygal-primary, 500);
+}
+
+.signup-form {
+  margin-top: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  max-width: 736px;
+  padding-bottom: 16px;
+  .mat-form-field {
+    margin-bottom: 16px;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .revert-decision-button {
+    margin-top: 16px;
+  }
+  button {
+    width: 100%;
+  }
+  mat-progress-bar {
+    position: relative;
+    width: 100%;
+    top: 6px;
+    left: 0;
+    max-width: 736px;
+  }
+}
+
+.will-not-attend-message {
+  margin: 16px;
+}
+
+#signed-up-message, #welcome {
+  margin: 16px;
+}
+
+#signed-up-buttons, #welcome-buttons, #regret-button {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 32px);
+  button {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+
+.signup-profile-image {
+  width: calc(100% - 2px);
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.signup-image, .signup-profile-image {
+  border: 1px solid mat-color($birfdaygal-primary, 400);
+}
+
+.signup-image {
+  width: 100%;
+}
+
+.signup-profile-image.invalid {
+  opacity: .3;
+}
+
+.profile-image-selector {
+  margin-bottom: 16px;
+}
+
+.music-quiz-question-card {
+  .name {
+    font-weight: bold;
+  }
+  img {
+    opacity: 0.85;
+    object-fit: cover;
+    height: 110px;
+  }
+  .reward-text {
+    color: mat-color($birfdaygal-primary, 400);
+    margin-top: 1em;
+  }
+  .reward-point {
+    font-weight: bold;
+  }
+}
+
+.mat-card {
+  margin: 8px;
+  background-color: mat-color($birfdaygal-primary, 900);
+  color: mat-color($birfdaygal-primary, 100);
+}
+
+.music-quiz-answer-card {
+  height: 16px;
+  background-color: mat-color($birfdaygal-primary, 800);
+  font-weight: bold;
+}
+
+.music-quiz-response, .music-quiz-paused {
+  text-align: center;
+  color: mat-color($birfdaygal-primary, 100);
+  padding: 16px;
+
+  .name {
+    font-weight: bold;
+  }
+  .decoration-image {
+    display: block;
+    object-fit: cover;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 1px solid mat-color($birfdaygal-primary, 400);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    margin-top: 24px;
+  }
+  .mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.wrong {
+  color: mat-color($birfdaygal-accent, 400);
+}
+
+.music-quiz-stats-card {
+  margin: 32px 32px 8px;
+  text-align: center;
+  color: mat-color($birfdaygal-primary, 100);
+  font-weight: normal;
+  .points {
+    font-weight: bold;
+  }
 }
 
 $bottom-nav-label-font-size-active: 12px;
 $bottom-nav-action-min-width: 52px;
 $bottom-nav-action-horizontal-margin: 0;
 $bottom-nav-border-color: none;
+$bottom-nav-label-font-family: "Baloo";
 
 @import '~material-bottom-nav';
 

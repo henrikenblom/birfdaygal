@@ -1,0 +1,31 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "Mallanyo 30",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "!/ngsw-worker.js",
+          "/assets/**",
+          "/assets/**/*",
+          "/assets/**/**/*",
+          "/assets/music-quiz/*",
+          "/assets/music-quiz/**/*"
+        ],
+        "versionedFiles": [
+          "/*.bundle.css",
+          "/*.bundle.js",
+          "/*.chunk.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css?family=Material+Icons",
+          "https://fonts.gstatic.com/s/materialicons/v29/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2",
+          "https://fonts.googleapis.com/css?family=Baloo"
+        ]
+      }
+    }
+  ]
+}
