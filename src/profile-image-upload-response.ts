@@ -3,4 +3,5 @@ export interface ProfileImageUploadResponse {
   url?: string;
   landmarked_url?: string;
   landmark_url?: string;
+  thumbnail_url?: string;
 }

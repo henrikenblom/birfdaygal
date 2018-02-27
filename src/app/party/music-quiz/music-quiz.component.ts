@@ -46,7 +46,9 @@ export class MusicQuizComponent implements OnInit {
       .doc<Track>('current_track')
       .valueChanges()
       .forEach(track => {
-        const update = this.currentTrack === undefined || this.currentTrack.name !== track.name;
+        const update = this.currentTrack === undefined
+          || (this.currentTrack.name !== track.name
+            || this.currentTrack.artist_id !== track.artist_id);
         this.currentTrack = track;
         this.quizRunning = this.currentTrack.is_playing;
         this.randomImageIndex = Math.floor(Math.random() * (16 - 1 + 1)) + 1;

@@ -4,9 +4,6 @@
       <h2>Sweet! Du har tackat ja till en skapligt grym fest! <img src="../../assets/SVG/party_canon.svg"></h2>
       <p>När det börjar närma sig kommer du få ett SMS med mer information och när själva festen dragit igång kommer den
         här webappen fyllas med en massa skoj!</p>
-      <h1>
-        <img src="../../assets/SVG/cake.svg">
-      </h1>
       <div id="signed-up-buttons">
         <button type="button" mat-raised-button color="primary" (click)="setFormComplete(false)">
           Jag vill ändra mina uppgifter
@@ -24,7 +21,8 @@
       <p>Tack för att du tar dig tid att svara. Den 7 april, på Engelbrektsplan 2 i Stockholm, firar vi Mallans
         30-årsdag. Det vore kul om du kom!</p>
       <div id="welcome-buttons">
-        <button type="button" mat-raised-button class="will-attend-button" color="primary" (click)="setWillAttend(true)">Självklart!
+        <button type="button" mat-raised-button class="will-attend-button" color="primary"
+                (click)="setWillAttend(true)">Självklart!
           Sign me
           up!
         </button>
@@ -34,18 +32,19 @@
     </div>
     <ng-container *ngIf="guest.hasResponded">
       <ng-container *ngIf="guest.willAttend">
-        <form class="signup-form">
+        <div class="signup-form">
           <mat-progress-bar *ngIf="awaitingImageEvaluation" mode="query"></mat-progress-bar>
           <div class="profile-image-selector">
             <div>
               <img class="signup-profile-image" [src]="previewUrl" (load)="awaitingImageEvaluation = false">
             </div>
-            <button type="button" class="signup-profile-image-selector" mat-button color="primary" (click)="selectFile()">
+            <button type="button" class="signup-profile-image-selector" mat-button color="primary"
+                    (click)="selectFile()">
               <mat-icon>add_a_photo</mat-icon>
               <ng-container *ngIf="guest.photo_url">Byt profilbild</ng-container>
               <ng-container *ngIf="!guest.photo_url">Välj/ta profilbild</ng-container>
             </button>
-            <input accept="image/*" type="file" capture="user" (change)="onNativeInputFileSelect($event)" #nativeInput
+            <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput
                    hidden/>
           </div>
 
@@ -82,24 +81,26 @@
                       mat-raised-button
                       color="primary"
                       (click)="setFormComplete(true)">
-                Klar!
+                <ng-container *ngIf="!guest.photo_url || guest.phonenumber.length < 10">Ange profilbild/mobilnummer</ng-container>
+                <ng-container *ngIf="guest.photo_url && guest.phonenumber.length > 9">Fortsätt</ng-container>
               </button>
             </div>
             <div class="revert-decision-button">
-              <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">Tyvärr kan jag inte längre komma
+              <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">Tyvärr kan jag inte
+                längre komma
               </button>
             </div>
           </div>
 
-        </form>
+        </div>
       </ng-container>
       <ng-container *ngIf="!guest.willAttend">
         <div class="will-not-attend-message">
-          <h1><img src="../../assets/SVG/teared_up.svg"></h1>
-          <h2>Ok, du har nu tackat nej till tidernas partaj…</h2>
+          <h2>Ok, du har nu tackat nej till tidernas partaj… <img src="../../assets/SVG/teared_up.svg"></h2>
           <p>Hur känns det? <img src="../../assets/SVG/wink.svg"></p>
           <div id="regret-button">
-            <button type="button" button mat-raised-button color="primary" (click)="setWillAttend(true)">Äh, vad fasen! Jag har ändrat
+            <button type="button" button mat-raised-button color="primary" (click)="setWillAttend(true)">Äh, vad fasen!
+              Jag har ändrat
               mig!
             </button>
           </div>

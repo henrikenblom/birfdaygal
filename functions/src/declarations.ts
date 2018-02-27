@@ -41,6 +41,7 @@ export interface Guest {
   photo_url?: string;
   landmarked_photo_url?: string;
   landmark_url?: string;
+  thumbnail_url?: string;
   dietRestrictions?: DietRestriction[];
   willAttend: boolean;
   hasResponded: boolean;
@@ -50,4 +51,19 @@ export interface Guest {
 
 export interface DietRestriction {
   name: string;
+}
+
+export interface InteractionEvent {
+  userId: string;
+  type: string;
+  time: Date
+}
+
+export enum InteractionEventType {
+  LOGGED_IN = 0,
+  LOGGED_OUT = 1,
+  COMPLETED_SIGNUP = 2,
+  SET_STATUS_WILL_ATTEND = 3,
+  SET_STATUS_WILL_NOT_ATTEND = 4,
+  SET_PROFILE_PHOTO = 5
 }

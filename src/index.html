@@ -35,7 +35,11 @@
   <meta name="msapplication-square150x150logo" content="assets/mstile-150x150.png" />
   <meta name="msapplication-wide310x150logo" content="assets/mstile-310x150.png" />
   <meta name="msapplication-square310x310logo" content="assets/mstile-310x310.png" />
-
+  <style type="text/css">
+    .unsupported_browser {
+      margin: 16px;
+    }
+  </style>
 </head>
 <body class="mat-app-background" style="background-color: #2E2E4A">
 <app-root>
@@ -106,4 +110,11 @@
   </div>
 </app-root>
 </body>
+<script type="application/javascript">
+  if (navigator.userAgent.match(/SamsungBrowser/i)) {
+    document.getElementsByTagName("body")[0].innerHTML = "<div class='unsupported_browser'><h3>Tyvärr använder den här webb-appen funktioner som saknar stöd i Samsungs inbyggda webbläsare.</h3><p>Öppna den i Chrome istället.</p></div>";
+  } else if (navigator.userAgent.indexOf('Opera Mini') > -1) {
+    document.getElementsByTagName("body")[0].innerHTML = "<div class='unsupported_browser'><h3>Tyvärr använder den här webb-appen funktioner som saknar stöd i Opera Mini.</h3><p>Öppna den i Chrome istället.</p></div>";
+  }
+</script>
 </html>

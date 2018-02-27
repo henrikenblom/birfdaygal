@@ -109,6 +109,7 @@ export class SignUpComponent implements OnInit {
             this.guest.photo_url = response.url;
             this.guest.landmarked_photo_url = response.landmarked_url;
             this.guest.landmark_url = response.landmark_url;
+            this.guest.thumbnail_url = response.thumbnail_url;
             this.updateGuest();
           } else {
             this.openFaceErrorDialog(response.status);
