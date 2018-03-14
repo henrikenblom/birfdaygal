@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "birfday-gal"
+    "default": "birfday-gal",
+    "staging": "beta-gal"
   }
 }

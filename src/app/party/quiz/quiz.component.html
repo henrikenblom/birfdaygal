@@ -1,3 +1,46 @@
-<p>
-  quiz works!
-</p>
+<mat-card *ngIf="!quizStarted && initialized">
+  <mat-card-content>
+    <h3>Välkommen till Mallan-quizet!</h3>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="showNextQuestion()">Starta</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="currentQuestion && !hasResponded && !quizEnded">
+  <mat-card-content>
+    <p>{{currentQuestion.question}}</p>
+  </mat-card-content>
+  <mat-card *ngFor="let responseOption of responseOptions" class="quiz-answer-card" mat-ripple
+            (click)="guess(responseOption)">
+    <mat-card-content>
+      {{responseOption.response}}
+    </mat-card-content>
+  </mat-card>
+</mat-card>
+
+<mat-card *ngIf="hasResponded">
+  <img *ngIf="lastAnswer.correct" class="quiz-response-image" mat-card-image
+       [src]="'../../../assets/SVG/quiz/correct' + randomImageIndex + '.svg'">
+  <img *ngIf="!lastAnswer.correct" class="quiz-response-image" mat-card-image
+       [src]="'../../../assets/SVG/quiz/incorrect' + randomImageIndex + '.svg'">
+  <mat-card-content *ngIf="lastAnswer.correct">
+    <h3>"{{lastAnswer.response}}" var rätt!</h3>
+    <p>{{currentQuestion.correctPhrase}}</p>
+  </mat-card-content>
+  <mat-card-content *ngIf="!lastAnswer.correct">
+    <h3 class="quiz-response-incorrect">"{{lastAnswer.response}}" var fel!</h3>
+    <p>{{currentQuestion.incorrectPhrase}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="showNextQuestion()">
+      <ng-container *ngIf="!onLastQuestion">Nästa fråga</ng-container>
+      <ng-container *ngIf="onLastQuestion">Visa resultatet</ng-container>
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+
+<mat-card *ngIf="!hasResponded && quizEnded">
+  Quiz done
+</mat-card>

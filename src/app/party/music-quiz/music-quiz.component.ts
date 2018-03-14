@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {GuessState, InitialGuessState, PlayerStats, Track} from '../../../../functions/src/declarations';
+import {GuessState, InitialGuessState, PlayerStats, ResponseOption, Track} from '../../../../functions/src/declarations';
 import {AuthService} from '../../auth.service';
+import {QuizUtils} from '../../../quiz-utils';
 
 @Component({
   selector: 'app-music-quiz',
@@ -9,10 +10,11 @@ import {AuthService} from '../../auth.service';
 })
 export class MusicQuizComponent implements OnInit {
 
+  MAX_RANDOM_IMAGE_INDEX = 16;
   currentTrack: Track;
   currentArtistInformation: ArtistInformation;
   playerStats: PlayerStats;
-  responseOptions: string[];
+  responseOptions: ResponseOption[];
   quizRunning = false;
   guessState: GuessState = new InitialGuessState();
   stateSynced = false;
@@ -28,9 +30,9 @@ export class MusicQuizComponent implements OnInit {
     this.fetchCurrentTrack();
   }
 
-  guess(artist: string) {
+  guess(responseOption: ResponseOption) {
     this.guessState = {
-      guessWasCorrect: this.currentTrack.artist_name === artist,
+      guessWasCorrect: responseOption.correct,
       haveGuessed: true,
       reward: this.currentTrack.reward
     };
@@ -51,7 +53,7 @@ export class MusicQuizComponent implements OnInit {
             || this.currentTrack.artist_id !== track.artist_id);
         this.currentTrack = track;
         this.quizRunning = this.currentTrack.is_playing;
-        this.randomImageIndex = Math.floor(Math.random() * (16 - 1 + 1)) + 1;
+        this.randomImageIndex = QuizUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
         if (update) {
           this.guessable = true;
           this.guessState.haveGuessed = false;
@@ -68,10 +70,12 @@ export class MusicQuizComponent implements OnInit {
       .valueChanges()
       .forEach(artistInformation => {
         if (artistInformation !== null) {
+          this.responseOptions = [];
           this.currentArtistInformation = artistInformation;
-          this.responseOptions = artistInformation.related_artists;
-          this.responseOptions[2] = artistInformation.name;
-          this.shuffle(this.responseOptions);
+          this.responseOptions[0] = {response: artistInformation.name, correct: true};
+          this.responseOptions[1] = {response: artistInformation.related_artists[0], correct: false};
+          this.responseOptions[2] = {response: artistInformation.related_artists[1], correct: false};
+          QuizUtils.shuffleResponses(this.responseOptions);
           this.guessable = true;
         } else {
           this.responseOptions = [];
@@ -133,18 +137,6 @@ export class MusicQuizComponent implements OnInit {
           this.guessState.guessWasCorrect = guessState.guessWasCorrect;
         }
       });
-  }
-
-  private shuffle(array: string[]): string[] {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-    return array;
   }
 
 }

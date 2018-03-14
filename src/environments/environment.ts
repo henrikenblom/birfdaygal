@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   profileImageUploadEndpoint: 'https://titan.enblom.com/profile_image_upload',
+  twinsImageUploadEndpoint: 'https://titan.enblom.com/twins/compare_by_photo',
   firebase: {
     apiKey: 'AIzaSyCgaKwpXsQmHj0iJK-IDv_BdhB6ETC7Aog',
     authDomain: 'birfday-gal.firebaseapp.com',

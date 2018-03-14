@@ -7,12 +7,16 @@ import {RouterModule, Routes} from '@angular/router';
 import {
   MatButtonModule,
   MatCardModule,
-  MatChipsModule, MatDialogModule,
+  MatChipsModule,
+  MatDialogModule,
   MatDividerModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatMenuModule, MatProgressBarModule,
-  MatRippleModule, MatSnackBarModule,
+  MatInputModule,
+  MatMenuModule,
+  MatProgressBarModule,
+  MatRippleModule,
+  MatSnackBarModule,
   MatStepperModule,
   MatToolbarModule
 } from '@angular/material';
@@ -28,10 +32,11 @@ import {LoginRoutingModule} from './login-routing/login-routing.module';
 import {PartyRoutingModule} from './party-routing/party-routing.module';
 import {FaceErrorDialogComponent, SignUpComponent} from './sign-up/sign-up.component';
 import {ProfileImageUploadService} from './profile-image-upload.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {FirstnamePipe} from './firstname.pipe';
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {TwinsService} from './twins.service';
 
 const appRoutes: Routes = [
   {path: 'signup', component: SignUpComponent},
@@ -78,7 +83,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
     LocalStorageModule.withConfig({
       prefix: 'birfday-gal',
       storageType: 'localStorage'
@@ -86,7 +90,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
-    ProfileImageUploadService
+    ProfileImageUploadService,
+    TwinsService
   ],
   bootstrap: [AppComponent]
 })

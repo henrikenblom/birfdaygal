@@ -31,7 +31,11 @@ export class AppComponent {
       this.db.collection('guests').doc<Guest>(this.authService.userId).valueChanges()
         .forEach(guest => {
           if (guest.photo_url) {
-            this.photoUrl = guest.photo_url;
+            if (guest.thumbnail_url) {
+              this.photoUrl = guest.thumbnail_url;
+            } else {
+              this.photoUrl = guest.photo_url;
+            }
             this.hasPhoto = true;
           }
           this.userName = guest.name;

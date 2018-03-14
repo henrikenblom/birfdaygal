@@ -1,3 +1,33 @@
-<p>
-  twins works!
-</p>
+<input accept="image/*" type="file" capture="user" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
+<mat-card *ngIf="!comparing && !comparisonDone">
+  <img mat-card-image src="../../../assets/twins/cat-and-rabbit-twins-1.jpg">
+  <mat-card-content>
+    <h3>Vilken av de andra festprissarna är du mest lik?</h3>
+    <p>Låt Mallans killes dator ge dig svaret genom en matematisk analys av profilbilden eller av en rykande färsk kamerabild.</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="acquireFromCamera()">Kamerabild</button>
+    <button mat-raised-button color="primary">Profilbild</button>
+  </mat-card-actions>
+</mat-card>
+<div *ngIf="comparing" id="twins-comparison-spinner">
+  <mat-progress-spinner *ngIf="comparing" mode="indeterminate"></mat-progress-spinner>
+</div>
+<div *ngIf="foundTwin" class="twin-info">
+  <h2>Du är mest lik:</h2>
+  <img [src]="twinPhotoUrl" class="avatar twins-image">
+  <h3>{{twinName}} ({{likeness}}%)</h3>
+  <button mat-raised-button type="button" (click)="reset()" color="primary">Prova igen</button>
+</div>
+<div *ngIf="foundPrankster" class="twin-info">
+  <p>Du är inte lik dig själv idag. Du är mer lik:</p>
+  <img [src]="twinPhotoUrl" class="avatar twins-image">
+  <h3>{{twinName}}</h3>
+  <button mat-raised-button type="button" (click)="reset()" color="primary">Prova igen</button>
+</div>
+<div *ngIf="unrecognized" class="twin-info">
+  <h2>Noll nyllen</h2>
+  <img src="../../../assets/SVG/party_animals/7.svg" class="twins-image">
+  <p>Det gick inte att hitta något känt ansikte.</p>
+  <button mat-raised-button type="button" (click)="reset()" color="primary">Prova igen kompis</button>
+</div>

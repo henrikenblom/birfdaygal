@@ -1,5 +1,7 @@
 <ng-container *ngIf="partyStarted">
-  <router-outlet></router-outlet>
+  <div id="main">
+    <router-outlet></router-outlet>
+  </div>
   <mat-toolbar class="bottom-nav" mat-ripple>
     <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'twins'}" routerLink="twins">
       <svg class="bottom-nav__icon" viewBox="0 0 24 24">

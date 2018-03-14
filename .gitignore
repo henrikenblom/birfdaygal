@@ -47,3 +47,4 @@ Thumbs.db
 /functions/lib/
 /src/environments/environment.prod.ts
 /src/environments/environment.ts
+functions/etc/

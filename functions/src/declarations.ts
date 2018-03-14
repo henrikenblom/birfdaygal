@@ -67,3 +67,18 @@ export enum InteractionEventType {
   SET_STATUS_WILL_NOT_ATTEND = 4,
   SET_PROFILE_PHOTO = 5
 }
+
+export interface QuizQuestion {
+  question: string;
+  correctAnswer: string;
+  firstIncorrectAnswer: string;
+  secondIncorrectAnswer: string;
+  correctPhrase: string;
+  incorrectPhrase: string;
+  id?: string;
+}
+
+export interface ResponseOption {
+  response: string;
+  correct: boolean;
+}

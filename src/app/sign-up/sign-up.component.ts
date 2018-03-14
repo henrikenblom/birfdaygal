@@ -102,7 +102,7 @@ export class SignUpComponent implements OnInit {
   onNativeInputFileSelect($event): void {
     if ($event.target.files && $event.target.files[0]) {
       this.awaitingImageEvaluation = true;
-      this.profileImageUploadService.postFile($event.target.files[0], this.userId)
+      this.profileImageUploadService.postFile($event.target.files[0])
         .then(response => {
           if (response.status === 'OK') {
             this.previewUrl = response.url;

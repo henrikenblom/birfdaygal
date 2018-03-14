@@ -32,12 +32,12 @@
             <p>Nästa låt kommer säkert funka bättre. Så keep your pants on shawty!</p>
           </ng-template>
         </mat-card-content>
-      </mat-card>
-      <mat-card *ngFor="let responseOption of responseOptions" class="music-quiz-answer-card" mat-ripple
-                (click)="guess(responseOption)">
-        <mat-card-content>
-          {{responseOption}}
-        </mat-card-content>
+        <mat-card *ngFor="let responseOption of responseOptions" class="quiz-answer-card" mat-ripple
+                  (click)="guess(responseOption)">
+          <mat-card-content>
+            {{responseOption.response}}
+          </mat-card-content>
+        </mat-card>
       </mat-card>
     </ng-template>
 
@@ -55,7 +55,7 @@
 
   <ng-template #resultBlock>
     <div class="error-background" *ngIf="!guessState.guessWasCorrect"></div>
-    <div *ngIf="currentArtistInformation && currentTrack" class="music-quiz-response"
+    <div *ngIf="currentArtistInformation && currentTrack" class="quiz-response"
          [ngClass]="{'wrong': !guessState.guessWasCorrect}">
       <ng-container
         *ngIf="guessState.guessWasCorrect; then guessWasCorrectBlock else guessWasIncorrectBlock"></ng-container>

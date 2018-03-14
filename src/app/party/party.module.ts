@@ -7,7 +7,10 @@ import {QuizComponent} from './quiz/quiz.component';
 import {MusicQuizComponent} from './music-quiz/music-quiz.component';
 import {MenuComponent} from './menu/menu.component';
 import {PeopleComponent} from './people/people.component';
-import {MatButtonModule, MatCardModule, MatIconModule, MatRippleModule, MatToolbarModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatRippleModule,
+  MatToolbarModule
+} from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BackgroundImageDirective} from '../background-image.directive';
@@ -24,6 +27,7 @@ import {AuthGuard} from '../auth-guard.service';
     MatButtonModule,
     MatCardModule,
     MatRippleModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     PartyComponent,

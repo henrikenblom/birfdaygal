@@ -44,8 +44,7 @@
               <ng-container *ngIf="guest.photo_url">Byt profilbild</ng-container>
               <ng-container *ngIf="!guest.photo_url">Välj/ta profilbild</ng-container>
             </button>
-            <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput
-                   hidden/>
+            <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
           </div>
 
           <div>
