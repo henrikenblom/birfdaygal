@@ -1,0 +1,35 @@
+<mat-expansion-panel
+  class="guest-list-entry"
+  [ngClass]="{'collapsed': !panelOpenState}"
+  (opened)="setPanelOpenState(true)"
+  (closed)="setPanelOpenState(false)">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="guest-name">
+      <img *ngIf="guest.thumbnail_url" class="avatar guest-list-thumbnail"
+           [ngClass]="{'expanded': panelOpenState}"
+           [src]="guest.thumbnail_url">
+      <img *ngIf="!guest.thumbnail_url"
+           class="guest-list-thumbnail"
+           [ngClass]="{'expanded': panelOpenState}"
+           [src]="'../../../assets/SVG/party_animals/' + randomImageIndex + '.svg'">
+      {{guest.name}}
+    </mat-panel-title>
+    <mat-panel-description>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="guest-description">Vem? - {{guest.relationship_description}}</div>
+  <mat-card class="guest-performance-card">
+    <mat-card-content>
+      <p>MusicQuiz - poäng per svar:</p>
+      <x-chartist
+        #musicQuizChart
+        type="Bar"
+        [data]="musicChartData"
+        [options]="musicChartOptions">
+      </x-chartist>
+      <div class="guest-performance-card-total">Totalt: {{musicQuizPlayerStats.points}} poäng</div>
+      <p>Quiz: {{quizScore}} rätt av {{quizAnswers}} möjliga</p>
+      <mat-progress-bar [value]="quizPerformance" color="accent"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+</mat-expansion-panel>

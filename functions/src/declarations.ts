@@ -4,6 +4,7 @@ export interface Track {
   artist_id: string;
   is_playing: boolean;
   reward: number;
+  song_start?: Date;
 }
 
 export interface PlayerStats {
@@ -16,6 +17,12 @@ export class InitialPlayerStats implements PlayerStats {
   points = 0;
   tens = 0;
   responses = 0;
+}
+
+export interface MusicQuizGuess {
+  guessWasCorrect: boolean;
+  reward: number;
+  guessDate: Date;
 }
 
 export interface GuessState {
@@ -47,6 +54,8 @@ export interface Guest {
   hasResponded: boolean;
   formComplete: boolean;
   isLoggedIn: boolean;
+  relationship_description?: string;
+  id?: string;
 }
 
 export interface DietRestriction {
@@ -81,4 +90,11 @@ export interface QuizQuestion {
 export interface ResponseOption {
   response: string;
   correct: boolean;
+}
+
+export interface SMS {
+  phoneNumber: string;
+  userId: string;
+  body: string;
+  sent?: boolean;
 }

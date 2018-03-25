@@ -1,28 +1,29 @@
 <input accept="image/*" type="file" capture="user" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
 <mat-card *ngIf="!comparing && !comparisonDone">
-  <img mat-card-image src="../../../assets/twins/cat-and-rabbit-twins-1.jpg">
+  <img mat-card-image [src]="'../../../assets/twins/' + randomImageIndex + '.jpg'">
   <mat-card-content>
     <h3>Vilken av de andra festprissarna är du mest lik?</h3>
-    <p>Låt Mallans killes dator ge dig svaret genom en matematisk analys av profilbilden eller av en rykande färsk kamerabild.</p>
+    <p>Låt Mallans killes dator ge dig svaret genom att jämföra storlek och avstånd mellan ögon, näsa, mun och haka.</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button color="primary" (click)="acquireFromCamera()">Kamerabild</button>
-    <button mat-raised-button color="primary">Profilbild</button>
+    <button mat-button color="primary" (click)="acquireFromCamera()">Jämför</button>
   </mat-card-actions>
 </mat-card>
 <div *ngIf="comparing" id="twins-comparison-spinner">
   <mat-progress-spinner *ngIf="comparing" mode="indeterminate"></mat-progress-spinner>
 </div>
-<div *ngIf="foundTwin" class="twin-info">
-  <h2>Du är mest lik:</h2>
+<div *ngIf="foundTwin && twin" class="twin-info">
+  <p>Du är mest lik:</p>
   <img [src]="twinPhotoUrl" class="avatar twins-image">
-  <h3>{{twinName}} ({{likeness}}%)</h3>
+  <div>{{twin.name}} ({{likeness}}%)</div>
+  <div>{{twin.relationship_description}}</div>
   <button mat-raised-button type="button" (click)="reset()" color="primary">Prova igen</button>
 </div>
-<div *ngIf="foundPrankster" class="twin-info">
+<div *ngIf="foundPrankster && twin" class="twin-info">
   <p>Du är inte lik dig själv idag. Du är mer lik:</p>
-  <img [src]="twinPhotoUrl" class="avatar twins-image">
-  <h3>{{twinName}}</h3>
+  <img [src]="twinPhotoUrl" class="twins-image avatar">
+  <div>{{twin.name}}</div>
+  <div>{{twin.relationship_description}}</div>
   <button mat-raised-button type="button" (click)="reset()" color="primary">Prova igen</button>
 </div>
 <div *ngIf="unrecognized" class="twin-info">

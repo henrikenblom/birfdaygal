@@ -10,6 +10,7 @@ import {
   MatChipsModule,
   MatDialogModule,
   MatDividerModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -37,10 +38,14 @@ import {FirstnamePipe} from './firstname.pipe';
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {TwinsService} from './twins.service';
+import {GuestViewComponent} from './party/guest-view/guest-view.component';
+import {ProfileComponent, ProfileFaceErrorDialogComponent} from './profile/profile.component';
+import {StateService} from './state.service';
 
 const appRoutes: Routes = [
   {path: 'signup', component: SignUpComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: '**', redirectTo: '/login', pathMatch: 'full'}
 ];
 
@@ -50,10 +55,13 @@ const appRoutes: Routes = [
     LoginComponent,
     SignUpComponent,
     FaceErrorDialogComponent,
-    FirstnamePipe
+    ProfileFaceErrorDialogComponent,
+    FirstnamePipe,
+    ProfileComponent
   ],
   entryComponents: [
-    FaceErrorDialogComponent
+    FaceErrorDialogComponent,
+    ProfileFaceErrorDialogComponent
   ],
   imports: [
     PartyModule,
@@ -73,6 +81,7 @@ const appRoutes: Routes = [
     MatProgressBarModule,
     MatSnackBarModule,
     MatMenuModule,
+    MatExpansionModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFirestoreModule,
@@ -91,7 +100,8 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     ProfileImageUploadService,
-    TwinsService
+    TwinsService,
+    StateService
   ],
   bootstrap: [AppComponent]
 })

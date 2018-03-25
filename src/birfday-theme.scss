@@ -16,6 +16,8 @@ $birfdaygal-theme: mat-dark-theme($birfdaygal-primary, $birfdaygal-accent);
 $material-design-icons-font-path: "../node_modules/material-design-icons-iconfont/dist/fonts/";
 @import "../node_modules/material-design-icons-iconfont/dist/material-design-icons";
 
+@import "../node_modules/chartist/dist/scss/chartist";
+
 *:focus {
   outline: none;
 }
@@ -73,6 +75,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .mat-toolbar {
   background-color: mat-color($birfdaygal-primary, 900);
+  position: relative;
 }
 
 .error-background {
@@ -100,7 +103,54 @@ h1, h2, h3, h4, h5, h6, p {
   height: 32px;
 }
 
-.signup-form {
+.guest-list-entry {
+  background-color: mat-color($birfdaygal-primary, 700);
+}
+
+.guest-list-entry.collapsed {
+  background-color: mat-color($birfdaygal-primary, 800);
+}
+
+.guest-details {
+  margin: 0 !important;
+}
+
+.guest-list-thumbnail {
+  width: 24px;
+  height: 24px;
+  margin-right: 24px;
+}
+
+.guest-list-thumbnail.expanded {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
+
+.guest-description {
+  color: mat-color($birfdaygal-primary, 100);
+  margin-bottom: 16px;
+}
+
+.guest-performance-card {
+  margin: 0 !important;
+  color: mat-color($birfdaygal-primary, 200) !important;
+}
+
+.guest-performance-card-total {
+  text-align: right;
+}
+
+.ct-bar {
+  stroke-width: 2px;
+  stroke: mat-color($birfdaygal-accent, 500) !important;
+}
+
+.ct-label {
+  color: mat-color($birfdaygal-primary, 500);
+}
+
+.signup-form, .profile-form {
   margin-top: 16px;
   margin-left: 16px;
   margin-right: 16px;
@@ -162,6 +212,10 @@ h1, h2, h3, h4, h5, h6, p {
   opacity: .3;
 }
 
+.signup-profile-image-selector {
+  margin-bottom: 16px !important;
+}
+
 .profile-image-selector {
   margin-bottom: 16px;
 }
@@ -206,7 +260,7 @@ h1, h2, h3, h4, h5, h6, p {
   margin-right: 16px;
   margin-top: 32px;
   .twins-image {
-    margin-top: 16px;
+    margin-bottom: 12px;
   }
   button {
     margin-top: 16px;
@@ -293,5 +347,6 @@ $bottom-nav-label-font-family: "Baloo";
 .bottom-nav {
   padding-left: 8px;
   padding-right: 8px;
+  position: relative;
   @include bottom-nav(mat-color($birfdaygal-primary, 900), mat-color($birfdaygal-primary, 100), mat-color($birfdaygal-primary, 400), false);
 }

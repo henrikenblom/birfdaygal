@@ -3,6 +3,7 @@ import {AuthService} from './auth.service';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {Guest} from '../../functions/src/declarations';
 import {NavigationEnd, Router} from '@angular/router';
+import {StateService} from './state.service';
 
 enableProdMode();
 
@@ -15,13 +16,19 @@ export class AppComponent {
   photoUrl = this.DEFAULT_PHOTO_URL;
   hasPhoto = false;
   userName = '';
+  inPartyContext = false;
 
   constructor(public authService: AuthService,
               private db: AngularFirestore,
-              public router: Router) {
+              public router: Router,
+              public stateService: StateService) {
     this.router.events
       .filter(event => (event instanceof NavigationEnd))
-      .subscribe(() => {
+      .subscribe(event => {
+        const context = (event as NavigationEnd).urlAfterRedirects;
+        if (this.inPartyContext = context.startsWith('/party')) {
+          this.stateService.urlAfterProfileChange = context;
+        }
         this.updatePhotoUrl();
       });
   }

@@ -3,6 +3,7 @@ import {TwinsService} from '../../twins.service';
 import {Guest} from '../../../../functions/src/declarations';
 import {AuthService} from '../../auth.service';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {PartyUtils} from '../../../quiz-utils';
 
 @Component({
   selector: 'app-twins',
@@ -10,6 +11,8 @@ import {AngularFirestore} from 'angularfire2/firestore';
 })
 export class TwinsComponent {
 
+  MAX_RANDOM_IMAGE_INDEX = 10;
+  randomImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
   DEFAULT_PHOTO_URL = '../assets/SVG/party_animals/1.svg';
   @ViewChild('nativeInput')
   nativeInputFile: ElementRef;
@@ -19,7 +22,7 @@ export class TwinsComponent {
   foundPrankster = false;
   unrecognized = false;
   twinPhotoUrl = this.DEFAULT_PHOTO_URL;
-  twinName = '';
+  twin: Guest;
   likeness = 0;
 
   constructor(private twinService: TwinsService,
@@ -32,14 +35,15 @@ export class TwinsComponent {
   }
 
   reset() {
+    delete this.twin;
     this.comparing = false;
     this.comparisonDone = false;
     this.foundTwin = false;
     this.foundPrankster = false;
     this.twinPhotoUrl = this.DEFAULT_PHOTO_URL;
-    this.twinName = '';
     this.likeness = 0;
     this.unrecognized = false;
+    this.nativeInputFile.nativeElement.value = '';
   }
 
   onNativeInputFileSelect($event): void {
@@ -61,6 +65,7 @@ export class TwinsComponent {
           }
         });
     }
+    $event.stopPropagation();
   }
 
   updateTwinPhotoUrl(userId: string) {
@@ -69,7 +74,7 @@ export class TwinsComponent {
         if (guest.photo_url) {
           this.twinPhotoUrl = guest.photo_url;
         }
-        this.twinName = guest.name;
+        this.twin = guest;
       });
   }
 }

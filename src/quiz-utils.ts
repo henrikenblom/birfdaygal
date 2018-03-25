@@ -1,6 +1,6 @@
 import {ResponseOption} from '../functions/src/declarations';
 
-export class QuizUtils {
+export class PartyUtils {
   public static shuffleResponses(array: ResponseOption[]): ResponseOption[] {
     let currentIndex = array.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {GuessState, InitialGuessState, PlayerStats, ResponseOption, Track} from '../../../../functions/src/declarations';
 import {AuthService} from '../../auth.service';
-import {QuizUtils} from '../../../quiz-utils';
+import {PartyUtils} from '../../../quiz-utils';
 
 @Component({
   selector: 'app-music-quiz',
@@ -53,7 +53,7 @@ export class MusicQuizComponent implements OnInit {
             || this.currentTrack.artist_id !== track.artist_id);
         this.currentTrack = track;
         this.quizRunning = this.currentTrack.is_playing;
-        this.randomImageIndex = QuizUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
+        this.randomImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
         if (update) {
           this.guessable = true;
           this.guessState.haveGuessed = false;
@@ -75,7 +75,7 @@ export class MusicQuizComponent implements OnInit {
           this.responseOptions[0] = {response: artistInformation.name, correct: true};
           this.responseOptions[1] = {response: artistInformation.related_artists[0], correct: false};
           this.responseOptions[2] = {response: artistInformation.related_artists[1], correct: false};
-          QuizUtils.shuffleResponses(this.responseOptions);
+          PartyUtils.shuffleResponses(this.responseOptions);
           this.guessable = true;
         } else {
           this.responseOptions = [];

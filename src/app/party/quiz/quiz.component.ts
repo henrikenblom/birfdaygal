@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {QuizQuestion, ResponseOption} from '../../../../functions/src/declarations';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AuthService} from '../../auth.service';
-import {QuizUtils} from '../../../quiz-utils';
+import {PartyUtils} from '../../../quiz-utils';
 
 @Component({
   selector: 'app-quiz',
@@ -23,6 +23,7 @@ export class QuizComponent implements OnInit {
   quizEnded = false;
   randomImageIndex = 1;
   score = 0;
+  performance = 0;
 
   constructor(private db: AngularFirestore,
               public authService: AuthService) {
@@ -38,7 +39,7 @@ export class QuizComponent implements OnInit {
   guess(responseOption: ResponseOption) {
     this.hasResponded = true;
     this.lastAnswer = responseOption;
-    this.randomImageIndex = QuizUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
+    this.randomImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
     this.db.collection('quiz')
       .doc(this.authService.userId)
       .collection('answers')
@@ -57,13 +58,16 @@ export class QuizComponent implements OnInit {
       .snapshotChanges()
       .forEach(data => {
         this.score = 0;
+        let c = 0;
         for (const answerDocument of data) {
           const answer: ResponseOption = answerDocument.payload.doc.data() as ResponseOption;
           this.answers.set(answerDocument.payload.doc.id, answer);
           if (answer.correct) {
             this.score++;
           }
+          c++;
         }
+        this.performance = (this.score / c) * 100;
         if (this.answers.size > 0 && !this.currentQuestion) {
           this.showNextQuestion();
         }
@@ -85,7 +89,7 @@ export class QuizComponent implements OnInit {
         this.responseOptions[0] = {response: question.correctAnswer, correct: true};
         this.responseOptions[1] = {response: question.firstIncorrectAnswer, correct: false};
         this.responseOptions[2] = {response: question.secondIncorrectAnswer, correct: false};
-        QuizUtils.shuffleResponses(this.responseOptions);
+        PartyUtils.shuffleResponses(this.responseOptions);
         noMoreQuestions = false;
         break;
       }

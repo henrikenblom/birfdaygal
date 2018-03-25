@@ -9,5 +9,6 @@
 </mat-toolbar>
 <mat-menu #userMenu>
   <button type="button" mat-menu-item (click)="doLogout()">Logga ut {{userName}}</button>
+  <button *ngIf="inPartyContext" type="button" mat-menu-item (click)="router.navigateByUrl('profile')">Byt profilbild</button>
 </mat-menu>
 <router-outlet></router-outlet>

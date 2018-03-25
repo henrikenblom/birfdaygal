@@ -1,0 +1,16 @@
+<div class="profile-form" *ngIf="guest">
+  <mat-progress-bar *ngIf="awaitingImageEvaluation" mode="query"></mat-progress-bar>
+  <div class="profile-image-selector">
+    <div>
+      <img class="signup-profile-image" [src]="previewUrl" (load)="awaitingImageEvaluation = false">
+    </div>
+    <button type="button" class="signup-profile-image-selector" mat-button color="primary"
+            (click)="selectFile()">
+      <mat-icon>add_a_photo</mat-icon>
+      <ng-container *ngIf="guest.photo_url">Byt profilbild</ng-container>
+      <ng-container *ngIf="!guest.photo_url">Välj/ta profilbild</ng-container>
+    </button>
+    <button type="button" mat-raised-button (click)="profileEditDone()">Klar</button>
+    <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
+  </div>
+</div>

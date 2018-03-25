@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {Guest} from '../../../functions/src/declarations';
 import 'rxjs/add/operator/switchMap';
@@ -36,7 +36,6 @@ export class SignUpComponent implements OnInit {
   };
 
   constructor(private _formBuilder: FormBuilder,
-              private route: ActivatedRoute,
               public router: Router,
               private db: AngularFirestore,
               private profileImageUploadService: ProfileImageUploadService,

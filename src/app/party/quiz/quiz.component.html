@@ -42,5 +42,10 @@
 
 
 <mat-card *ngIf="!hasResponded && quizEnded">
-  Quiz done
+  <h3 *ngIf="performance < 40">Haha! Det där gick ju inte så bra...</h3>
+  <h3 *ngIf="performance > 40 && performance < 60">Helt OK</h3>
+  <h3 *ngIf="performance > 60 && performance < 100">Bra jobbat!</h3>
+  <h3 *ngIf="performance === 100">Snyggt! Full pott!</h3>
+  <p>Du fick {{score}} poäng av {{answers.size}} möjliga</p>
+  <p>Nu kan du gå och ta en öl. Det har du gjort dig förtjänt av!</p>
 </mat-card>
