@@ -1,0 +1,15 @@
+<div class="party-countdown" *ngIf="partyCountDown | async as time1">
+  <h1>Festen börjar om:</h1>
+  <div>{{time1.days | countDownUnit: 'days'}}, {{time1.hours | countDownUnit: 'hours'}},</div>
+  <div>{{time1.minutes | countDownUnit: 'minutes'}} och {{time1.seconds | countDownUnit: 'seconds'}}</div>
+  <div>
+    <img src="../../../assets/SVG/dancing_couple.svg">
+  </div>
+  <div class="progress">
+    <mat-progress-bar
+      color="accent"
+      mode="determinate"
+      [value]="time1.distance / 3456">
+    </mat-progress-bar>
+  </div>
+</div>

@@ -1,110 +1,120 @@
 <ng-container *ngIf="guest">
-  <ng-container *ngIf="guest.formComplete">
-    <div id="signed-up-message">
-      <h2>Sweet! Du har tackat ja till en skapligt grym fest! <img src="../../assets/SVG/party_canon.svg"></h2>
-      <p>När det börjar närma sig kommer du få ett SMS med mer information och när själva festen dragit igång kommer den
-        här webappen fyllas med en massa skoj!</p>
-      <div id="signed-up-buttons">
-        <button type="button" mat-raised-button color="primary" (click)="setFormComplete(false)">
-          Jag vill ändra mina uppgifter
-        </button>
-        <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">
-          Tyvärr kan jag inte längre komma
-        </button>
+  <ng-container *ngIf="guest.willAttend || signupPeriod">
+    <ng-container *ngIf="guest.formComplete">
+      <div id="signed-up-message">
+        <h2>Sweet! Du har tackat ja till en skapligt grym fest! <img src="../../assets/SVG/party_canon.svg"></h2>
+        <p>När det börjar närma sig kommer du få ett SMS med mer information och när själva festen dragit igång kommer
+          den
+          här webappen fyllas med en massa skoj!</p>
+        <div id="signed-up-buttons">
+          <button type="button" mat-raised-button color="primary" (click)="setFormComplete(false)">
+            Jag vill ändra mina uppgifter
+          </button>
+          <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">
+            Tyvärr kan jag inte längre komma
+          </button>
+        </div>
       </div>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!guest.formComplete">
-    <div id="welcome" *ngIf="!guest.hasResponded">
-      <img class="signup-image" src="../../assets/mallan1.jpg">
-      <h3>Hej {{guest.name | firstname}}! <img src="../../assets/SVG/hello.svg"></h3>
-      <p>Tack för att du tar dig tid att svara. Den 7 april, på Engelbrektsplan 2 i Stockholm, firar vi Mallans
-        30-årsdag. Det vore kul om du kom!</p>
-      <div id="welcome-buttons">
-        <button type="button" mat-raised-button class="will-attend-button" color="primary"
-                (click)="setWillAttend(true)">Självklart!
-          Sign me
-          up!
-        </button>
-        <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">Nej, jag hatar att ha kul!
-        </button>
+    </ng-container>
+    <ng-container *ngIf="!guest.formComplete">
+      <div id="welcome" *ngIf="!guest.hasResponded">
+        <img class="signup-image" src="../../assets/mallan1.jpg">
+        <h3>Hej {{guest.name | firstname}}! <img src="../../assets/SVG/hello.svg"></h3>
+        <p>Tack för att du tar dig tid att svara. Den 7 april, på Engelbrektsplan 2 i Stockholm, firar vi Mallans
+          30-årsdag. Det vore kul om du kom!</p>
+        <div id="welcome-buttons">
+          <button type="button" mat-raised-button class="will-attend-button" color="primary"
+                  (click)="setWillAttend(true)">Självklart!
+            Sign me
+            up!
+          </button>
+          <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">Nej, jag hatar att ha kul!
+          </button>
+        </div>
       </div>
-    </div>
-    <ng-container *ngIf="guest.hasResponded">
-      <ng-container *ngIf="guest.willAttend">
-        <div class="signup-form">
-          <mat-progress-bar *ngIf="awaitingImageEvaluation" mode="query"></mat-progress-bar>
-          <div class="profile-image-selector">
-            <div>
-              <img class="signup-profile-image" [src]="previewUrl" (load)="awaitingImageEvaluation = false">
+      <ng-container *ngIf="guest.hasResponded">
+        <ng-container *ngIf="guest.willAttend">
+          <div class="signup-form">
+            <mat-progress-bar *ngIf="awaitingImageEvaluation" mode="query"></mat-progress-bar>
+            <div class="profile-image-selector">
+              <div>
+                <img class="signup-profile-image" [src]="previewUrl" (load)="awaitingImageEvaluation = false">
+              </div>
+              <button type="button" class="signup-profile-image-selector" mat-button color="primary"
+                      (click)="selectFile()">
+                <mat-icon>add_a_photo</mat-icon>
+                <ng-container *ngIf="guest.photo_url">Byt profilbild</ng-container>
+                <ng-container *ngIf="!guest.photo_url">Välj/ta profilbild</ng-container>
+              </button>
+              <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
             </div>
-            <button type="button" class="signup-profile-image-selector" mat-button color="primary"
-                    (click)="selectFile()">
-              <mat-icon>add_a_photo</mat-icon>
-              <ng-container *ngIf="guest.photo_url">Byt profilbild</ng-container>
-              <ng-container *ngIf="!guest.photo_url">Välj/ta profilbild</ng-container>
-            </button>
-            <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
-          </div>
 
-          <div>
-            <mat-form-field>
-              <mat-chip-list #dietChipList>
-                <mat-chip *ngFor="let dietRestriction of guest.dietRestrictions" [selectable]="false"
-                          [removable]="true" (remove)="removeDietRestriction(dietRestriction)">
-                  {{dietRestriction.name}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-              <input matInput placeholder="Matallergi och liknande"
-                     [matChipInputFor]="dietChipList"
-                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                     [matChipInputAddOnBlur]="true"
-                     (matChipInputTokenEnd)="addDietRestriction($event)">
-            </mat-form-field>
-          </div>
-
-          <div>
-            <mat-form-field>
-              <input matInput placeholder="Telefonnummer"
-                     required
-                     [(value)]="guest.phonenumber"
-                     (blur)="onPhoneNumberBlur($event)">
-            </mat-form-field>
-          </div>
-
-          <div>
             <div>
-              <button type="button"
-                      [disabled]="!guest.photo_url || guest.phonenumber.length < 10"
-                      mat-raised-button
-                      color="primary"
-                      (click)="setFormComplete(true)">
-                <ng-container *ngIf="!guest.photo_url || guest.phonenumber.length < 10">Ange profilbild/mobilnummer</ng-container>
-                <ng-container *ngIf="guest.photo_url && guest.phonenumber.length > 9">Fortsätt</ng-container>
+              <mat-form-field>
+                <mat-chip-list #dietChipList>
+                  <mat-chip *ngFor="let dietRestriction of guest.dietRestrictions" [selectable]="false"
+                            [removable]="true" (remove)="removeDietRestriction(dietRestriction)">
+                    {{dietRestriction.name}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+                <input matInput placeholder="Matallergi och liknande"
+                       [matChipInputFor]="dietChipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="true"
+                       (matChipInputTokenEnd)="addDietRestriction($event)">
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <input matInput placeholder="Telefonnummer"
+                       required
+                       [(value)]="guest.phonenumber"
+                       (blur)="onPhoneNumberBlur($event)">
+              </mat-form-field>
+            </div>
+
+            <div>
+              <div>
+                <button type="button"
+                        [disabled]="!guest.photo_url || guest.phonenumber.length < 10"
+                        mat-raised-button
+                        color="primary"
+                        (click)="setFormComplete(true)">
+                  <ng-container *ngIf="!guest.photo_url || guest.phonenumber.length < 10">Ange profilbild/mobilnummer
+                  </ng-container>
+                  <ng-container *ngIf="guest.photo_url && guest.phonenumber.length > 9">Fortsätt</ng-container>
+                </button>
+              </div>
+              <div class="revert-decision-button">
+                <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">Tyvärr kan jag inte
+                  längre komma
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!guest.willAttend">
+          <div class="will-not-attend-message">
+            <h2>Ok, du har nu tackat nej till tidernas partaj… <img src="../../assets/SVG/teared_up.svg"></h2>
+            <p>Hur känns det? <img src="../../assets/SVG/wink.svg"></p>
+            <div id="regret-button">
+              <button type="button" button mat-raised-button color="primary" (click)="setWillAttend(true)">Äh, vad
+                fasen!
+                Jag har ändrat
+                mig!
               </button>
             </div>
-            <div class="revert-decision-button">
-              <button type="button" mat-raised-button color="warn" (click)="setWillAttend(false)">Tyvärr kan jag inte
-                längre komma
-              </button>
-            </div>
           </div>
-
-        </div>
-      </ng-container>
-      <ng-container *ngIf="!guest.willAttend">
-        <div class="will-not-attend-message">
-          <h2>Ok, du har nu tackat nej till tidernas partaj… <img src="../../assets/SVG/teared_up.svg"></h2>
-          <p>Hur känns det? <img src="../../assets/SVG/wink.svg"></p>
-          <div id="regret-button">
-            <button type="button" button mat-raised-button color="primary" (click)="setWillAttend(true)">Äh, vad fasen!
-              Jag har ändrat
-              mig!
-            </button>
-          </div>
-        </div>
+        </ng-container>
       </ng-container>
     </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!guest.willAttend && !signupPeriod">
+    <div class="signup-closed-message">
+      Tyvärr går det inte längre att anmäla sig.
+    </div>
   </ng-container>
 </ng-container>

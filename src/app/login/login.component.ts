@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   doPostLoginNavigation() {
-    this.router.navigateByUrl('/signup');
+    this.router.navigateByUrl('/party');
   }
+
 }

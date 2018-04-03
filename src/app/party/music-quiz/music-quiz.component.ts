@@ -36,6 +36,7 @@ export class MusicQuizComponent implements OnInit {
       haveGuessed: true,
       reward: this.currentTrack.reward
     };
+    this.responseOptions = [];
     this.db.collection('musicquiz')
       .doc('guesses')
       .collection('users')
@@ -102,7 +103,6 @@ export class MusicQuizComponent implements OnInit {
         } else {
           docReference.set(new InitialGuessState());
         }
-        this.stateSynced = true;
       }).then(() => this.fetchState());
 
     statsReference.ref.get()
@@ -136,6 +136,7 @@ export class MusicQuizComponent implements OnInit {
           this.guessState.haveGuessed = guessState.haveGuessed;
           this.guessState.guessWasCorrect = guessState.guessWasCorrect;
         }
+        this.stateSynced = true;
       });
   }
 

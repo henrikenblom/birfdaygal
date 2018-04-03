@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {PartyComponent} from '../party/party.component';
 import {AuthGuard} from '../auth-guard.service';
-import {MenuComponent} from '../party/menu/menu.component';
 import {QuizComponent} from '../party/quiz/quiz.component';
 import {MusicQuizComponent} from '../party/music-quiz/music-quiz.component';
 import {TwinsComponent} from '../party/twins/twins.component';
@@ -17,7 +16,6 @@ const partyRoutes: Routes = [{
     {path: 'twins', component: TwinsComponent, data: {'active-link': 'twins'}},
     {path: 'quiz', component: QuizComponent, data: {'active-link': 'quiz'}},
     {path: 'music-quiz', component: MusicQuizComponent, data: {'active-link': 'music-quiz'}},
-    {path: 'menu', component: MenuComponent, data: {'active-link': 'menu'}},
     {path: 'people', component: PeopleComponent, data: {'active-link': 'people'}},
     {path: '**', redirectTo: 'music-quiz', pathMatch: 'full'}
   ]

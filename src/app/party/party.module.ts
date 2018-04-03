@@ -5,12 +5,16 @@ import {PartyComponent} from './party.component';
 import {TwinsComponent} from './twins/twins.component';
 import {QuizComponent} from './quiz/quiz.component';
 import {MusicQuizComponent} from './music-quiz/music-quiz.component';
-import {MenuComponent} from './menu/menu.component';
 import {PeopleComponent} from './people/people.component';
 import {
-  MatButtonModule, MatCardModule, MatExpansionModule, MatGridListModule, MatIconModule, MatListModule, MatProgressBarModule,
+  MatButtonModule,
+  MatCardModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatListModule,
+  MatProgressBarModule,
   MatProgressSpinnerModule,
-  MatRippleModule,
   MatToolbarModule
 } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
@@ -19,7 +23,9 @@ import {BackgroundImageDirective} from '../background-image.directive';
 import {AuthGuard} from '../auth-guard.service';
 import {GuestViewComponent} from './guest-view/guest-view.component';
 import {ChartistModule} from 'ng-chartist';
-import {FirstnamePipe} from '../firstname.pipe';
+import {CountDownComponent} from './count-down/count-down.component';
+import {CountDownService} from './count-down.service';
+import {CountDownUnitPipe} from './count-down-unit.pipe';
 
 @NgModule({
   imports: [
@@ -43,13 +49,15 @@ import {FirstnamePipe} from '../firstname.pipe';
     TwinsComponent,
     QuizComponent,
     MusicQuizComponent,
-    MenuComponent,
     PeopleComponent,
     GuestViewComponent,
-    BackgroundImageDirective
+    BackgroundImageDirective,
+    CountDownComponent,
+    CountDownUnitPipe
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    CountDownService
   ]
 })
 export class PartyModule { }

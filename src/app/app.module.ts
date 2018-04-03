@@ -38,7 +38,6 @@ import {FirstnamePipe} from './firstname.pipe';
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {TwinsService} from './twins.service';
-import {GuestViewComponent} from './party/guest-view/guest-view.component';
 import {ProfileComponent, ProfileFaceErrorDialogComponent} from './profile/profile.component';
 import {StateService} from './state.service';
 

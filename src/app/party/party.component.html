@@ -1,9 +1,10 @@
-<ng-container *ngIf="partyStarted">
+<ng-container *ngIf="stateSynced && partyStarted">
   <div id="main">
     <router-outlet></router-outlet>
   </div>
   <mat-toolbar class="bottom-nav" mat-ripple>
-    <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'twins'}" routerLink="twins">
+    <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'twins'}"
+       routerLink="twins">
       <svg class="bottom-nav__icon" viewBox="0 0 24 24">
         <path d="M5.5,11.8c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8C6.3,12.1,5.9,11.8,5.5,11.8z M9.4,11.8
 		c-0.4,0-0.8,0.4-0.8,0.8c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8C10.2,12.1,9.8,11.8,9.4,11.8z M7.4,5.4
@@ -18,16 +19,12 @@
     </a>
     <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'quiz'}" routerLink="quiz">
       <span class="bottom-nav__icon"><mat-icon>format_list_bulleted</mat-icon></span>
-      <span class="bottom-nav__label">Quiz</span>
+      <span class="bottom-nav__label">MallanQuiz</span>
     </a>
     <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'music-quiz'}"
        routerLink="music-quiz">
       <span class="bottom-nav__icon"><mat-icon>album</mat-icon></span>
       <span class="bottom-nav__label">MusicQuiz</span>
-    </a>
-    <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'menu'}" routerLink="menu">
-      <span class="bottom-nav__icon"><mat-icon>restaurant</mat-icon></span>
-      <span class="bottom-nav__label">Meny</span>
     </a>
     <a class="bottom-nav__action" [ngClass]="{'bottom-nav__action--active': activeLink === 'people'}"
        routerLink="people">
@@ -35,4 +32,7 @@
       <span class="bottom-nav__label">Fölk</span>
     </a>
   </mat-toolbar>
+</ng-container>
+<ng-container *ngIf="stateSynced && !partyStarted">
+  <app-count-down></app-count-down>
 </ng-container>

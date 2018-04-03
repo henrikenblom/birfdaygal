@@ -11,6 +11,7 @@ import {PartyUtils} from '../../../quiz-utils';
 export class QuizComponent implements OnInit {
 
   MAX_RANDOM_IMAGE_INDEX = 4;
+  MAX_RANDOM_MALLAN_IMAGE_INDEX = 12;
   answers: Map<string, ResponseOption> = new Map();
   questions: QuizQuestion[] = [];
   lastAnswer: ResponseOption;
@@ -22,6 +23,7 @@ export class QuizComponent implements OnInit {
   quizStarted = false;
   quizEnded = false;
   randomImageIndex = 1;
+  randomMallanImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_MALLAN_IMAGE_INDEX);
   score = 0;
   performance = 0;
 
@@ -40,6 +42,7 @@ export class QuizComponent implements OnInit {
     this.hasResponded = true;
     this.lastAnswer = responseOption;
     this.randomImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
+    this.randomMallanImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_MALLAN_IMAGE_INDEX);
     this.db.collection('quiz')
       .doc(this.authService.userId)
       .collection('answers')

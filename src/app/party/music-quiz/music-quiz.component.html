@@ -1,14 +1,14 @@
 <ng-container *ngIf="stateSynced">
 
-  <ng-container *ngIf="guessState.haveGuessed; then resultBlock else guessBlock"></ng-container>
+  <ng-container *ngIf="stateSynced && guessState.haveGuessed; then resultBlock else guessBlock"></ng-container>
 
   <ng-template #guessBlock>
 
-    <ng-container *ngIf="quizRunning; then quizRunningBlock else quizPausedBlock"></ng-container>
+    <ng-container *ngIf="stateSynced && quizRunning; then quizRunningBlock else quizPausedBlock"></ng-container>
 
     <ng-template #quizRunningBlock>
 
-      <mat-card class="music-quiz-question-card">
+      <mat-card *ngIf="responseOptions && responseOptions.length === 3" class="music-quiz-question-card">
         <img mat-card-image src="../../assets/music-quiz/header-images/{{randomImageIndex}}.jpg">
         <mat-card-content>
           <ng-container *ngIf="guessable; then clueBlock else unguessableBlock"></ng-container>
@@ -54,7 +54,7 @@
   </ng-template>
 
   <ng-template #resultBlock>
-    <div class="error-background" *ngIf="!guessState.guessWasCorrect"></div>
+    <div class="error-background" *ngIf="stateSynced && !guessState.guessWasCorrect"></div>
     <div *ngIf="currentArtistInformation && currentTrack" class="quiz-response"
          [ngClass]="{'wrong': !guessState.guessWasCorrect}">
       <ng-container

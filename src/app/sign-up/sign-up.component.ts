@@ -2,7 +2,7 @@ import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreDocument} from 'angularfire2/firestore';
-import {Guest} from '../../../functions/src/declarations';
+import {ApplicationState, Guest} from '../../../functions/src/declarations';
 import 'rxjs/add/operator/switchMap';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialog} from '@angular/material';
@@ -19,6 +19,7 @@ export class SignUpComponent implements OnInit {
   nativeInputFile: ElementRef;
   guest: Guest;
   userId: string;
+  signupPeriod = false;
   docReference: AngularFirestoreDocument<Guest>;
   previewUrl: SafeUrl = '../../assets/no_profile.png';
   profileImageStatus = 'NOT_SET';
@@ -45,8 +46,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn) {
-      this.userId = this.authService.userId;
-      this.fetchGuestInfo();
+      this.router.navigateByUrl('/party');
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -142,6 +142,13 @@ export class SignUpComponent implements OnInit {
 
   private updateGuest(): Promise<any> {
     return this.docReference.update(this.guest);
+  }
+
+  private fetchState() {
+    this.db.collection('general')
+      .doc<ApplicationState>('state')
+      .valueChanges()
+      .forEach(state => this.signupPeriod = state.signupPeriod);
   }
 
 }

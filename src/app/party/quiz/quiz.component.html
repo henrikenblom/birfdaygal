@@ -1,4 +1,5 @@
 <mat-card *ngIf="!quizStarted && initialized">
+  <img mat-card-image src="../../../assets/quiz/9.jpg">
   <mat-card-content>
     <h3>Välkommen till Mallan-quizet!</h3>
   </mat-card-content>
@@ -8,6 +9,7 @@
 </mat-card>
 
 <mat-card *ngIf="currentQuestion && !hasResponded && !quizEnded">
+  <img mat-card-image src="../../../assets/quiz/{{randomMallanImageIndex}}.jpg">
   <mat-card-content>
     <p>{{currentQuestion.question}}</p>
   </mat-card-content>
@@ -42,10 +44,11 @@
 
 
 <mat-card *ngIf="!hasResponded && quizEnded">
+  <img mat-card-image src="../../../assets/quiz/12.jpg">
   <h3 *ngIf="performance < 40">Haha! Det där gick ju inte så bra...</h3>
   <h3 *ngIf="performance > 40 && performance < 60">Helt OK</h3>
   <h3 *ngIf="performance > 60 && performance < 100">Bra jobbat!</h3>
   <h3 *ngIf="performance === 100">Snyggt! Full pott!</h3>
   <p>Du fick {{score}} poäng av {{answers.size}} möjliga</p>
-  <p>Nu kan du gå och ta en öl. Det har du gjort dig förtjänt av!</p>
+  <p>Nu kan du gå och ta dig en öl. Det har du gjort dig förtjänt av! 🍻</p>
 </mat-card>
