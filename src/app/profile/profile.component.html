@@ -10,7 +10,7 @@
       <ng-container *ngIf="guest.photo_url">Byt profilbild</ng-container>
       <ng-container *ngIf="!guest.photo_url">Välj/ta profilbild</ng-container>
     </button>
-    <button type="button" mat-raised-button (click)="profileEditDone()">Klar</button>
+    <button type="button" mat-raised-button color="accent" (click)="profileEditDone()">Klar</button>
     <input accept="image/*" type="file" (change)="onNativeInputFileSelect($event)" #nativeInput hidden/>
   </div>
 </div>

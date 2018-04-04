@@ -4,7 +4,7 @@
 
   <ng-template #guessBlock>
 
-    <ng-container *ngIf="stateSynced && quizRunning; then quizRunningBlock else quizPausedBlock"></ng-container>
+    <ng-container *ngIf="stateSynced && quizRunning && generalStateQuizRunning; then quizRunningBlock else quizPausedBlock"></ng-container>
 
     <ng-template #quizRunningBlock>
 

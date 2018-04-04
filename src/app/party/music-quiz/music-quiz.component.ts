@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {GuessState, PlayerStats, ResponseOption, Track} from '../../../../functions/src/declarations';
+import {ApplicationState, GuessState, PlayerStats, ResponseOption, Track} from '../../../../functions/src/declarations';
 import {AuthService} from '../../auth.service';
 import {PartyUtils} from '../../../quiz-utils';
 
@@ -15,6 +15,7 @@ export class MusicQuizComponent implements OnInit {
   currentArtistInformation: ArtistInformation;
   playerStats: PlayerStats;
   responseOptions: ResponseOption[];
+  generalStateQuizRunning = false;
   quizRunning = false;
   guessState: GuessState = {guessWasCorrect: false, haveGuessed: false, reward: 0};
   stateSynced = false;
@@ -27,6 +28,7 @@ export class MusicQuizComponent implements OnInit {
 
   ngOnInit() {
     this.initializeState();
+    this.fetchGeneralState();
     this.fetchCurrentTrack();
   }
 
@@ -137,6 +139,15 @@ export class MusicQuizComponent implements OnInit {
           this.guessState.guessWasCorrect = guessState.guessWasCorrect;
         }
         this.stateSynced = true;
+      });
+  }
+
+  private fetchGeneralState() {
+    this.db.collection('general')
+      .doc<ApplicationState>('state')
+      .valueChanges()
+      .forEach(state => {
+        this.generalStateQuizRunning = state.musicQuizRunning;
       });
   }
 

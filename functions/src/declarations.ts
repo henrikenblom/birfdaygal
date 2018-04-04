@@ -34,6 +34,7 @@ export interface GuessState {
 export interface ApplicationState {
   partyStarted: boolean;
   signupPeriod: boolean;
+  musicQuizRunning: boolean;
 }
 
 export interface Guest {
