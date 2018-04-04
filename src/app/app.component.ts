@@ -44,6 +44,9 @@ export class AppComponent {
               this.photoUrl = guest.photo_url;
             }
             this.hasPhoto = true;
+          } else {
+            this.hasPhoto = true;
+            this.photoUrl = this.DEFAULT_PHOTO_URL;
           }
           this.userName = guest.name;
         });

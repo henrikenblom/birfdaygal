@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {Guest, MusicQuizGuess, PlayerStats, ResponseOption} from '../../../../functions/src/declarations';
 import {PartyUtils} from '../../../quiz-utils';
 import {AngularFirestore} from 'angularfire2/firestore';
@@ -9,7 +9,7 @@ import {ChartistComponent} from 'ng-chartist';
   selector: 'app-guest-view',
   templateUrl: './guest-view.component.html'
 })
-export class GuestViewComponent {
+export class GuestViewComponent implements AfterViewInit {
 
   MAX_RANDOM_IMAGE_INDEX = 9;
   @ViewChild('musicQuizChart')
@@ -91,6 +91,13 @@ export class GuestViewComponent {
   };
 
   constructor(private db: AngularFirestore) {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.guest.photo_url === undefined
+      && this.guest.id === 'ClhR1AR7yZwEbu17gbwH') {
+      this.randomImageIndex = 2;
+    }
   }
 
   setPanelOpenState(state: boolean) {

@@ -4,12 +4,13 @@ import {Guest} from '../../../../functions/src/declarations';
 import {AuthService} from '../../auth.service';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {PartyUtils} from '../../../quiz-utils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-twins',
   templateUrl: './twins.component.html'
 })
-export class TwinsComponent {
+export class TwinsComponent implements OnInit {
 
   MAX_RANDOM_IMAGE_INDEX = 10;
   randomImageIndex = PartyUtils.randomizeIndex(this.MAX_RANDOM_IMAGE_INDEX);
@@ -23,11 +24,17 @@ export class TwinsComponent {
   unrecognized = false;
   twinPhotoUrl = this.DEFAULT_PHOTO_URL;
   twin: Guest;
+  guest: Guest;
   likeness = 0;
 
   constructor(private twinService: TwinsService,
               private db: AngularFirestore,
-              public authService: AuthService) {
+              public authService: AuthService,
+              private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.fetchGuest();
   }
 
   acquireFromCamera() {
@@ -72,9 +79,21 @@ export class TwinsComponent {
     this.db.collection('guests').doc<Guest>(userId).valueChanges()
       .forEach(guest => {
         if (guest.photo_url) {
-          this.twinPhotoUrl = guest.photo_url;
+          this.twinPhotoUrl = guest.landmarked_photo_url;
         }
         this.twin = guest;
       });
   }
+
+  fetchGuest() {
+    this.db.collection('guests').doc<Guest>(this.authService.userId).valueChanges()
+      .forEach(guest => {
+        this.guest = guest;
+      });
+  }
+
+  navigateToProfilePage() {
+    this.router.navigateByUrl('/profile');
+  }
+
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {GuessState, InitialGuessState, PlayerStats, ResponseOption, Track} from '../../../../functions/src/declarations';
+import {GuessState, PlayerStats, ResponseOption, Track} from '../../../../functions/src/declarations';
 import {AuthService} from '../../auth.service';
 import {PartyUtils} from '../../../quiz-utils';
 
@@ -16,7 +16,7 @@ export class MusicQuizComponent implements OnInit {
   playerStats: PlayerStats;
   responseOptions: ResponseOption[];
   quizRunning = false;
-  guessState: GuessState = new InitialGuessState();
+  guessState: GuessState = {guessWasCorrect: false, haveGuessed: false, reward: 0};
   stateSynced = false;
   guessable = true;
   randomImageIndex = 1;
@@ -101,7 +101,7 @@ export class MusicQuizComponent implements OnInit {
         if (doc.exists) {
           this.guessState.guessWasCorrect = doc.data()['correct'];
         } else {
-          docReference.set(new InitialGuessState());
+          docReference.set(this.guessState);
         }
       }).then(() => this.fetchState());
 

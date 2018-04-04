@@ -31,14 +31,9 @@ export interface GuessState {
   reward: number;
 }
 
-export class InitialGuessState implements GuessState {
-  haveGuessed = false;
-  guessWasCorrect = false;
-  reward: 0;
-}
-
 export interface ApplicationState {
   partyStarted: boolean;
+  signupPeriod: boolean;
 }
 
 export interface Guest {

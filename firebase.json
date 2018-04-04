@@ -29,6 +29,10 @@
           {
             "key": "Content-Type",
             "value": "application/javascript"
+          },
+          {
+            "key" : "Cache-Control",
+            "value" : "max-age=3600"
           }
         ]
       }

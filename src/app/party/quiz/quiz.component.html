@@ -2,9 +2,10 @@
   <img mat-card-image src="../../../assets/quiz/9.jpg">
   <mat-card-content>
     <h3>Välkommen till Mallan-quizet!</h3>
+    <p>Svara på 18 enkla frågor om allas vår favorittjej Malin (hon på bilden) och vinn ett fint pris! Eller "fint" och "fint"...man vinner en bukett klubbor inslagna i några servetter vi hittade i fyndlådan på Willys.</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="showNextQuestion()">Starta</button>
+    <button mat-raised-button type="button" color="accent" (click)="showNextQuestion()">Starta</button>
   </mat-card-actions>
 </mat-card>
 
@@ -41,7 +42,6 @@
     </button>
   </mat-card-actions>
 </mat-card>
-
 
 <mat-card *ngIf="!hasResponded && quizEnded">
   <img mat-card-image src="../../../assets/quiz/12.jpg">

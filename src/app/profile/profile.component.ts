@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   guest: Guest;
   docReference: AngularFirestoreDocument<Guest>;
   profileImageStatus = 'NOT_SET';
-  previewUrl: SafeUrl = '../../assets/no_profile.png';
+  previewUrl: SafeUrl = '../../assets/batman.jpg';
   awaitingImageEvaluation = false;
   faceError = {
     NO_FACE: 'Det gick tyvärr inte att hitta något ansikte i bilden.',
