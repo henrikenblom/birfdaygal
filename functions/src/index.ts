@@ -2,22 +2,59 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import {ACCOUNT_SID, AUTH_TOKEN, FROM_NUMBER} from './secret';
 import * as Twilio from 'twilio';
-import {GuessState, Guest, InteractionEvent, InteractionEventType, MusicQuizGuess, PlayerStats, SMS, Track} from './declarations';
+import {
+  GuessState,
+  Guest,
+  InteractionEvent,
+  InteractionEventType,
+  MusicQuizGuess,
+  PlayerStats, QuizStats,
+  ResponseOption,
+  SMS,
+  Track
+} from './declarations';
 
 admin.initializeApp(functions.config().firebase);
 
 const twilioClient = new Twilio(ACCOUNT_SID, AUTH_TOKEN);
+const PNF = require('google-libphonenumber').PhoneNumberFormat;
+
+// Get an instance of `PhoneNumberUtil`.
+const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+
 const db = admin.firestore();
+
+exports.resetMusicQuiz = functions.https.onRequest((req, res) => {
+
+  const scoreboardRef = db.collection('musicquiz').doc('scoreboard').collection('stats');
+
+  scoreboardRef.get()
+    .then((snapshot) => {
+
+      const batch = db.batch();
+      snapshot.docs.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      batch.commit();
+
+    });
+
+  res.status(200).send('OK');
+
+});
 
 exports.sendSMS = functions.firestore
   .document('sms/{message}')
   .onCreate(event => {
 
     const sms = <SMS> event.data.data();
+    const phoneNumber = phoneUtil.parseAndKeepRawInput(sms.phoneNumber, 'SE');
+    console.log(phoneUtil.format(phoneNumber, PNF.E164));
 
     return twilioClient.messages.create(
       {
-        to: sms.phoneNumber,
+        to: phoneUtil.format(phoneNumber, PNF.E164),
         from: FROM_NUMBER,
         body: sms.body,
       },
@@ -29,6 +66,32 @@ exports.sendSMS = functions.firestore
 
   });
 
+exports.updateQuizScore = functions.firestore
+  .document('quiz/{userId}/answers/{answer}')
+  .onCreate(event => {
+
+    const userId = event.params.userId;
+    const responseOption = <ResponseOption> event.data.data();
+    const statsRef = db.collection('quiz').doc('data').collection('stats').doc(userId);
+    const reward = responseOption.correct ? 1 : 0;
+
+    statsRef.get()
+      .then(doc => {
+        if (doc.exists) {
+          const stats = <QuizStats> doc.data();
+          stats.points += reward;
+          statsRef.update(stats);
+        } else {
+          const stats: QuizStats = {points: reward};
+          statsRef.set(stats);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+  });
+
 exports.recordInteraction = functions.firestore
   .document('guests/{userId}')
   .onUpdate(event => {
@@ -36,27 +99,24 @@ exports.recordInteraction = functions.firestore
     const currentGuestData = <Guest> event.data.data();
     const previousGuestData = <Guest> event.data.previous.data();
     const userId = event.params.userId;
-    let retval: Promise<any>;
 
     if (currentGuestData.photo_url !== previousGuestData.photo_url)
-      retval = addInteractionEvent(userId, InteractionEventType.SET_PROFILE_PHOTO);
+      return addInteractionEvent(userId, InteractionEventType.SET_PROFILE_PHOTO);
 
     if (currentGuestData.willAttend && !previousGuestData.willAttend)
-      retval = addInteractionEvent(userId, InteractionEventType.SET_STATUS_WILL_ATTEND);
+      return addInteractionEvent(userId, InteractionEventType.SET_STATUS_WILL_ATTEND);
 
     if (!currentGuestData.willAttend && previousGuestData.willAttend)
-      retval = addInteractionEvent(userId, InteractionEventType.SET_STATUS_WILL_NOT_ATTEND);
+      return addInteractionEvent(userId, InteractionEventType.SET_STATUS_WILL_NOT_ATTEND);
 
     if (currentGuestData.isLoggedIn && !previousGuestData.isLoggedIn)
-      retval = addInteractionEvent(userId, InteractionEventType.LOGGED_IN);
+      return addInteractionEvent(userId, InteractionEventType.LOGGED_IN);
 
     if (!currentGuestData.isLoggedIn && previousGuestData.isLoggedIn)
-      retval = addInteractionEvent(userId, InteractionEventType.LOGGED_OUT);
+      return addInteractionEvent(userId, InteractionEventType.LOGGED_OUT);
 
     if (currentGuestData.formComplete && !previousGuestData.formComplete)
-      retval = addInteractionEvent(userId, InteractionEventType.COMPLETED_SIGNUP);
-
-    return retval;
+      return addInteractionEvent(userId, InteractionEventType.COMPLETED_SIGNUP);
 
   });
 

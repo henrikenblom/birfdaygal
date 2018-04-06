@@ -7,6 +7,10 @@ export interface Track {
   song_start?: Date;
 }
 
+export interface QuizStats {
+  points: number;
+}
+
 export interface PlayerStats {
   points: number;
   tens: number;

@@ -7,15 +7,9 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: './count-down.component.html',
   styleUrls: ['./count-down.component.css']
 })
-export class CountDownComponent implements OnInit {
+export class CountDownComponent {
 
-  partyCountDown: Observable<Time>;
-
-  constructor(private countDownService: CountDownService) {
-  }
-
-  ngOnInit() {
-    this.partyCountDown = this.countDownService.timer(new Date('2018-04-07 18:00:00'));
+  constructor() {
   }
 
 }

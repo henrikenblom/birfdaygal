@@ -25,7 +25,6 @@ import {GuestViewComponent} from './guest-view/guest-view.component';
 import {ChartistModule} from 'ng-chartist';
 import {CountDownComponent} from './count-down/count-down.component';
 import {CountDownService} from './count-down.service';
-import {CountDownUnitPipe} from './count-down-unit.pipe';
 
 @NgModule({
   imports: [
@@ -52,8 +51,7 @@ import {CountDownUnitPipe} from './count-down-unit.pipe';
     PeopleComponent,
     GuestViewComponent,
     BackgroundImageDirective,
-    CountDownComponent,
-    CountDownUnitPipe
+    CountDownComponent
   ],
   providers: [
     AuthGuard,

@@ -2,7 +2,7 @@
   <img mat-card-image src="../../../assets/quiz/9.jpg">
   <mat-card-content>
     <h3>Välkommen till Mallan-quizet!</h3>
-    <p>Svara på 18 enkla frågor om allas vår favorittjej Malin (hon på bilden) och vinn ett fint pris! Eller "fint" och "fint"...man vinner en bukett klubbor inslagna i några servetter vi hittade i fyndlådan på Willys.</p>
+    <p>Svara på 18 enkla frågor om allas vår favorittjej Malin (hon på bilden) och vinn ett fint pris! Eller "fint" och "fint"…man vinner en bukett klubbor inslagna i några servetter vi hittade i fyndlådan på Willys.</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button type="button" color="accent" (click)="showNextQuestion()">Starta</button>
@@ -36,7 +36,7 @@
     <p>{{currentQuestion.incorrectPhrase}}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="showNextQuestion()">
+    <button mat-raised-button type="button" (click)="showNextQuestion()" color="accent">
       <ng-container *ngIf="!onLastQuestion">Nästa fråga</ng-container>
       <ng-container *ngIf="onLastQuestion">Visa resultatet</ng-container>
     </button>
@@ -50,5 +50,5 @@
   <h3 *ngIf="performance > 60 && performance < 100">Bra jobbat!</h3>
   <h3 *ngIf="performance === 100">Snyggt! Full pott!</h3>
   <p>Du fick {{score}} poäng av {{answers.size}} möjliga</p>
-  <p>Nu kan du gå och ta dig en öl. Det har du gjort dig förtjänt av! 🍻</p>
+  <p>Nu kan du gå och ta dig en öl. Det har du gjort dig förtjänt av! 🍺</p>
 </mat-card>

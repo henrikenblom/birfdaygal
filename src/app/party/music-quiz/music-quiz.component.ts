@@ -10,6 +10,7 @@ import {PartyUtils} from '../../../quiz-utils';
 })
 export class MusicQuizComponent implements OnInit {
 
+  REWARD_ADJUSTMENT_SCALE = 0.2303;
   MAX_RANDOM_IMAGE_INDEX = 16;
   currentTrack: Track;
   currentArtistInformation: ArtistInformation;
@@ -36,7 +37,7 @@ export class MusicQuizComponent implements OnInit {
     this.guessState = {
       guessWasCorrect: responseOption.correct,
       haveGuessed: true,
-      reward: this.currentTrack.reward
+      reward: this.adjustReward(this.currentTrack.reward)
     };
     this.responseOptions = [];
     this.db.collection('musicquiz')
@@ -44,6 +45,10 @@ export class MusicQuizComponent implements OnInit {
       .collection('users')
       .doc(this.authService.userId)
       .set(this.guessState);
+  }
+
+  adjustReward(reward: number) {
+    return Math.floor(Math.exp(reward * this.REWARD_ADJUSTMENT_SCALE));
   }
 
   private fetchCurrentTrack() {

@@ -2,12 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ApplicationState} from '../../../functions/src/declarations';
-import {routerTransition} from '../animations';
 
 @Component({
   selector: 'app-party',
-  templateUrl: './party.component.html',
-  animations: [routerTransition]
+  templateUrl: './party.component.html'
 })
 export class PartyComponent implements OnInit {
 

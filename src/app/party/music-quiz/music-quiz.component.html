@@ -13,15 +13,15 @@
         <mat-card-content>
           <ng-container *ngIf="guessable; then clueBlock else unguessableBlock"></ng-container>
           <ng-template #clueBlock>
-            <ng-container *ngIf="currentTrack.reward > 5; then hardGuess else easyGuess"></ng-container>
+            <ng-container *ngIf="currentTrack.reward > 4; then hardGuess else easyGuess"></ng-container>
             <ng-template #hardGuess>
-              För <span class="reward-point">{{currentTrack.reward}}</span> poäng: Vilken artist/grupp har gjort låten
+              För <span class="reward-point">{{adjustReward(currentTrack.reward)}}</span> poäng: Vilken artist/grupp har gjort låten
               som spelas?
             </ng-template>
             <ng-template #easyGuess>
               Låten heter <span class="name">{{currentTrack.name}}</span>
-              <div class="reward-text">För <span class="reward-point">{{currentTrack.reward}}</span> poäng: Vad heter
-                artisten?
+              <div class="reward-text">För <span class="reward-point">{{adjustReward(currentTrack.reward)}}</span> poäng: Vad heter
+                artisten/gruppen?
               </div>
             </ng-template>
           </ng-template>

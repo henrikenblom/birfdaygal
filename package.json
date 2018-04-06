@@ -1,6 +1,6 @@
 {
   "name": "birfdaygal",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -39,7 +39,7 @@
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.0",
+    "@angular/cli": "^1.7.3",
     "@angular/compiler-cli": "^5.2.5",
     "@angular/language-service": "^5.2.5",
     "@types/chartist": "^0.9.38",
